@@ -1,7 +1,7 @@
 const express = require('express');
 const userRouter = require('./routers/UserRoutes')
 const app = express();
-const port = 5000;
+const port = 5001;
 
 app.use(express.json());
 
