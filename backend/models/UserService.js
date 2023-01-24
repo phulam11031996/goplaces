@@ -3,6 +3,7 @@ const userModel = require("../schemas/UserSchema");
 const dotenv = require("dotenv");
 dotenv.config();
 
+mongoose.set("strictQuery", false);
 mongoose.connect(
   process.env.DB_URL,
   {
