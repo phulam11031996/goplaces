@@ -1,12 +1,16 @@
 import * as React from "react";
-import { View, StyleSheet, SafeAreaView } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import { Text, View, StyleSheet, SafeAreaView, Button } from "react-native";
+import MapView, { Callout, Marker } from "react-native-maps";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+
+import CardViewMarker from "../components/CardViewMarker";
 
 const markerData = [
   {
-    title: "Marker 1",
+    title: "Marker something more more more more",
     description: "Description number one.",
+    rating: 4,
+    imageLocation: "../assets/sample-google-card.jpeg",
     latlng: {
       latitude: 35.2837524,
       longitude: -120.6596156,
@@ -15,6 +19,8 @@ const markerData = [
   {
     title: "Marker 2",
     description: "Description number two.",
+    rating: 3,
+    imageLocation: "../assets/sample-google-card.jpeg",
     latlng: {
       latitude: 35.2847524,
       longitude: -120.6596156,
@@ -23,6 +29,8 @@ const markerData = [
   {
     title: "Marker 3",
     description: "Description number three.",
+    rating: 1,
+    imageLocation: "../assets/sample-google-card.jpeg",
     latlng: {
       latitude: 35.2857524,
       longitude: -120.6596156,
@@ -34,8 +42,8 @@ const MapViewScreen = () => {
   const [region, setRegion] = React.useState({
     latitude: 35.2847545,
     longitude: -120.6596156,
-    latitudeDelta: 0.00500,
-    longitudeDelta: 0.00500,
+    latitudeDelta: 0.005,
+    longitudeDelta: 0.005,
   });
 
   return (
@@ -63,8 +71,20 @@ const MapViewScreen = () => {
             coordinate={marker.latlng}
             title={marker.title}
             description={marker.description}
-            image={require("../assets/map_marker.png")}
-          />
+            image={require("../assets/map-marker.png")}
+            onPress={(data) => {
+              setRegion(data.nativeEvent.coordinate);
+            }}
+          >
+            <Callout>
+              <CardViewMarker
+                title={marker.title}
+                description={marker.description}
+                imageLocation={marker.imageLocation}
+                rating={marker.rating}
+              />
+            </Callout>
+          </Marker>
         ))}
       </MapView>
     </View>
@@ -74,7 +94,6 @@ const MapViewScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
   },
   map: {
@@ -85,7 +104,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 1,
     width: "90%",
-    height: "100%",
   },
 });
 
