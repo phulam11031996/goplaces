@@ -13,14 +13,10 @@ const HomeScreen = () => {
             language: "en",
           }}
           GooglePlacesDetailsQuery={{ fields: "geometry" }}
-
-          onPress={(data, details = null) => {
-            // 'details' is provided when fetchDetails = true
-            // console.log(data, details);
+          onPress={(details) => {
             console.log(details);
           }}
         />
-
       </SafeAreaView>
     </View>
   );

@@ -1,7 +1,9 @@
 import * as React from "react";
-import { View, StyleSheet, SafeAreaView, Button } from "react-native";
+import axios from "axios";
+import { View, StyleSheet, SafeAreaView } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { GOOGLEPLACESAUTOCOMPLETE_API, DEV_BACKEND_URL } from "@env";
 
 import CardViewMarker from "../components/CardViewMarker";
 
@@ -37,14 +39,26 @@ const markerData = [
     },
   },
 ];
+const initialRegion = {
+  latitude: 35.2847545,
+  longitude: -120.6596156,
+  latitudeDelta: 0.005,
+  longitudeDelta: 0.005,
+};
 
 const MapViewScreen = () => {
-  const [region, setRegion] = React.useState({
-    latitude: 35.2847545,
-    longitude: -120.6596156,
-    latitudeDelta: 0.005,
-    longitudeDelta: 0.005,
-  });
+  const [region, setRegion] = React.useState(initialRegion);
+
+  const getTravelData = () => {
+    axios
+      .get(DEV_BACKEND_URL)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -54,9 +68,9 @@ const MapViewScreen = () => {
           fetchDetails={true}
           GooglePlacesDetailsQuery={{ fields: "geometry" }}
           query={{
-            key: "AIzaSyC5H2FM0yYE2AgV750u977sqAHuD0P5QGo",
+            key: GOOGLEPLACESAUTOCOMPLETE_API,
           }}
-          onPress={(details) => {
+          onPress={(data, details) => {
             setRegion({
               latitude: details.geometry.location.lat,
               longitude: details.geometry.location.lng,
