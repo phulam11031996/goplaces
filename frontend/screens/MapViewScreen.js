@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Text, View, StyleSheet, SafeAreaView, Button } from "react-native";
-import MapView, { Callout, Marker } from "react-native-maps";
+import { View, StyleSheet, SafeAreaView, Button } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 import CardViewMarker from "../components/CardViewMarker";
@@ -23,7 +23,7 @@ const markerData = [
     imageLocation: "../assets/sample-google-card.jpeg",
     latlng: {
       latitude: 35.2847524,
-      longitude: -120.6596156,
+      longitude: -120.6566156,
     },
   },
   {
@@ -33,7 +33,7 @@ const markerData = [
     imageLocation: "../assets/sample-google-card.jpeg",
     latlng: {
       latitude: 35.2857524,
-      longitude: -120.6596156,
+      longitude: -120.6586156,
     },
   },
 ];
@@ -56,7 +56,7 @@ const MapViewScreen = () => {
           query={{
             key: "AIzaSyC5H2FM0yYE2AgV750u977sqAHuD0P5QGo",
           }}
-          onPress={(data, details = null) => {
+          onPress={(details) => {
             setRegion({
               latitude: details.geometry.location.lat,
               longitude: details.geometry.location.lng,
@@ -64,26 +64,22 @@ const MapViewScreen = () => {
           }}
         />
       </SafeAreaView>
-      <MapView style={styles.map} region={region}>
+      <MapView style={styles.map} region={region} mapType={"satellite"}>
         {markerData.map((marker, index) => (
           <Marker
             key={index}
             coordinate={marker.latlng}
-            title={marker.title}
-            description={marker.description}
             image={require("../assets/map-marker.png")}
             onPress={(data) => {
               setRegion(data.nativeEvent.coordinate);
             }}
           >
-            <Callout>
-              <CardViewMarker
-                title={marker.title}
-                description={marker.description}
-                imageLocation={marker.imageLocation}
-                rating={marker.rating}
-              />
-            </Callout>
+            <CardViewMarker
+              title={marker.title}
+              description={marker.description}
+              imageLocation={marker.imageLocation}
+              rating={marker.rating}
+            />
           </Marker>
         ))}
       </MapView>

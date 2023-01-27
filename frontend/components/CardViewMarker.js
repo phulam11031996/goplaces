@@ -12,12 +12,42 @@ const CardViewMarker = (props) => {
       />
       <Rating
         imageSize={17}
+        ratingCount={5}
+        readonly
+        startingValue={props.rating}
       />
+      <View style={styles.arrow} />
     </View>
   );
 };
 const styles = StyleSheet.create({
-  bubble: {},
+  bubble: {
+    position: "absolute",
+    bottom: 15,
+    left: -31,
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    padding: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
+  },
+  arrow: {
+    backgroundColor: "transparent",
+    borderColor: "transparent",
+    borderTopColor: "#fff",
+    borderWidth: 12,
+    alignSelf: "center",
+    marginTop: -25,
+    top: 27,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
+  },
   title: {
     fontSize: 12,
     textAlign: "center",
