@@ -6,39 +6,8 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { GOOGLEPLACESAUTOCOMPLETE_API, DEV_BACKEND_URL } from "@env";
 
 import CardViewMarker from "../components/CardViewMarker";
+import * as Progress from "react-native-progress";
 
-const markerData = [
-  {
-    title: "Marker something more more more more",
-    description: "Description number one.",
-    rating: 4,
-    imageLocation: "../assets/sample-google-card.jpeg",
-    latlng: {
-      latitude: 35.2837524,
-      longitude: -120.6596156,
-    },
-  },
-  {
-    title: "Marker 2",
-    description: "Description number two.",
-    rating: 3,
-    imageLocation: "../assets/sample-google-card.jpeg",
-    latlng: {
-      latitude: 35.2847524,
-      longitude: -120.6566156,
-    },
-  },
-  {
-    title: "Marker 3",
-    description: "Description number three.",
-    rating: 1,
-    imageLocation: "../assets/sample-google-card.jpeg",
-    latlng: {
-      latitude: 35.2857524,
-      longitude: -120.6586156,
-    },
-  },
-];
 const initialRegion = {
   latitude: 35.2847545,
   longitude: -120.6596156,
@@ -48,20 +17,33 @@ const initialRegion = {
 
 const MapViewScreen = () => {
   const [region, setRegion] = React.useState(initialRegion);
+  const [places, setPlaces] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    getNewPosition(initialRegion.latitude, initialRegion.longitude);
+    setLoading(false);
+  }, []);
+
+  const getNewPosition = async (lat, lng) => {
+    const travelData = await getTravelData(lat, lng);
+    setPlaces(travelData);
+  };
 
   const getTravelData = async (lat, lng) => {
     const params = {
       latitude: lat,
       longitude: lng,
     };
-    await axios
+    const travelData = await axios
       .get(DEV_BACKEND_URL + "travelinfo/", { params: params })
       .then((res) => {
-        console.log(res.data);
+        return res.data;
       })
       .catch((err) => {
         console.log(err);
       });
+    return travelData;
   };
 
   return (
@@ -74,12 +56,14 @@ const MapViewScreen = () => {
           query={{
             key: GOOGLEPLACESAUTOCOMPLETE_API,
           }}
-          onPress={(data, details) => {
+          onPress={async (data, details) => {
+            console.log(details.geometry.location.lat);
+            console.log(details.geometry.location.lng);
             setRegion({
               latitude: details.geometry.location.lat,
               longitude: details.geometry.location.lng,
             });
-            getTravelData(
+            getNewPosition(
               details.geometry.location.lat,
               details.geometry.location.lng
             );
@@ -87,23 +71,26 @@ const MapViewScreen = () => {
         />
       </SafeAreaView>
       <MapView style={styles.map} region={region} mapType={"standard"}>
-        {markerData.map((marker, index) => (
-          <Marker
-            key={index}
-            coordinate={marker.latlng}
-            image={require("../assets/map-marker.png")}
-            onPress={(data) => {
-              setRegion(data.nativeEvent.coordinate);
-            }}
-          >
-            <CardViewMarker
-              title={marker.title}
-              description={marker.description}
-              imageLocation={marker.imageLocation}
-              rating={marker.rating}
-            />
-          </Marker>
-        ))}
+        {loading ? (
+          <Progress.Bar style={styles.loading} progress={0.3} width={200} />
+        ) : (
+          places &&
+          places.map((place, index) => (
+            <Marker
+              key={index}
+              coordinate={{
+                latitude: place.latitude,
+                longitude: place.longitude,
+              }}
+              image={require("../assets/map-marker.png")}
+              onPress={(data) => {
+                setRegion(data.nativeEvent.coordinate);
+              }}
+            >
+              <CardViewMarker name={place.name} photoUrl={place.photoUrl} />
+            </Marker>
+          ))
+        )}
       </MapView>
     </View>
   );
@@ -122,6 +109,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 1,
     width: "90%",
+  },
+  loading: {
+    position: "absolute-top",
   },
 });
 

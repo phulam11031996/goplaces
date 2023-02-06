@@ -10,6 +10,8 @@ class ParseData {
       .filter(
         (ele) =>
           "name" in ele &&
+          "latitude" in ele &&
+          "longitude" in ele &&
           "num_reviews" in ele &&
           "photo" in ele &&
           "awards" in ele &&
@@ -21,6 +23,8 @@ class ParseData {
       .map((ele) => {
         return {
           name: ele.name,
+          latitude: ele.latitude,
+          longitude: ele.longitude,
           numReviews: ele.num_reviews,
           photoUrl: ele.photo.images.medium.url,
           awards: ele.awards,

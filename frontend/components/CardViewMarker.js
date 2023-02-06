@@ -5,21 +5,14 @@ import { Rating } from "react-native-ratings";
 const CardViewMarker = (props) => {
   return (
     <View style={styles.bubble}>
-      <Text style={styles.title}>{props.title}</Text>
-      <Image
-        style={styles.image}
-        source={require("../assets/sample-google-card.jpeg")}
-      />
-      <Rating
-        imageSize={17}
-        ratingCount={5}
-        readonly
-        startingValue={props.rating}
-      />
+      <Text style={styles.title}>{props.name}</Text>
+      <Image style={styles.image} source={{ uri: props.photoUrl }} />
+      <Rating imageSize={17} ratingCount={5} readonly startingValue={5} />
       <View style={styles.arrow} />
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   bubble: {
     position: "absolute",

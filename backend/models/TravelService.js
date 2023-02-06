@@ -32,6 +32,7 @@ const getTravelInfo = async (params) => {
       return -1;
     });
 
+  console.log(travelData);
   return travelData;
 };
 
