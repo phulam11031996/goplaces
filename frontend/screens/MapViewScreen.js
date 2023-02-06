@@ -1,12 +1,21 @@
 import * as React from "react";
 import axios from "axios";
-import { View, StyleSheet, SafeAreaView } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  SafeAreaView,
+  Dimensions,
+  ActivityIndicator,
+} from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLEPLACESAUTOCOMPLETE_API, DEV_BACKEND_URL } from "@env";
 
 import CardViewMarker from "../components/CardViewMarker";
 import * as Progress from "react-native-progress";
+
+const { width, height } = Dimensions.get("screen");
 
 const initialRegion = {
   latitude: 35.2847545,
@@ -22,11 +31,12 @@ const MapViewScreen = () => {
 
   React.useEffect(() => {
     getNewPosition(initialRegion.latitude, initialRegion.longitude);
-    setLoading(false);
   }, []);
 
   const getNewPosition = async (lat, lng) => {
+    setLoading(true);
     const travelData = await getTravelData(lat, lng);
+    setLoading(false);
     setPlaces(travelData);
   };
 
@@ -57,8 +67,6 @@ const MapViewScreen = () => {
             key: GOOGLEPLACESAUTOCOMPLETE_API,
           }}
           onPress={async (data, details) => {
-            console.log(details.geometry.location.lat);
-            console.log(details.geometry.location.lng);
             setRegion({
               latitude: details.geometry.location.lat,
               longitude: details.geometry.location.lng,
@@ -70,11 +78,13 @@ const MapViewScreen = () => {
           }}
         />
       </SafeAreaView>
+      {loading ? (
+        <ActivityIndicator style={styles.loading} size="large" color="tomato" />
+      ) : (
+        <Text>Hello</Text>
+      )}
       <MapView style={styles.map} region={region} mapType={"standard"}>
-        {loading ? (
-          <Progress.Bar style={styles.loading} progress={0.3} width={200} />
-        ) : (
-          places &&
+        {places &&
           places.map((place, index) => (
             <Marker
               key={index}
@@ -89,8 +99,7 @@ const MapViewScreen = () => {
             >
               <CardViewMarker name={place.name} photoUrl={place.photoUrl} />
             </Marker>
-          ))
-        )}
+          ))}
       </MapView>
     </View>
   );
@@ -100,6 +109,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    justifyContent: "center",
   },
   map: {
     width: "100%",
@@ -107,11 +117,13 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     position: "absolute",
-    zIndex: 1,
+    top: 0,
     width: "90%",
+    zIndex: 1,
   },
   loading: {
-    position: "absolute-top",
+    position: "absolute",
+    zIndex: 1,
   },
 });
 
