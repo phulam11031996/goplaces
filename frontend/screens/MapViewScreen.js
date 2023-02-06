@@ -49,14 +49,18 @@ const initialRegion = {
 const MapViewScreen = () => {
   const [region, setRegion] = React.useState(initialRegion);
 
-  const getTravelData = () => {
-    axios
-      .get(DEV_BACKEND_URL)
-      .then(function (response) {
-        console.log(response);
+  const getTravelData = async (lat, lng) => {
+    const params = {
+      latitude: lat,
+      longitude: lng,
+    };
+    await axios
+      .get(DEV_BACKEND_URL + "travelinfo/", { params: params })
+      .then((res) => {
+        console.log(res.data);
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -75,10 +79,14 @@ const MapViewScreen = () => {
               latitude: details.geometry.location.lat,
               longitude: details.geometry.location.lng,
             });
+            getTravelData(
+              details.geometry.location.lat,
+              details.geometry.location.lng
+            );
           }}
         />
       </SafeAreaView>
-      <MapView style={styles.map} region={region} mapType={"satellite"}>
+      <MapView style={styles.map} region={region} mapType={"standard"}>
         {markerData.map((marker, index) => (
           <Marker
             key={index}
