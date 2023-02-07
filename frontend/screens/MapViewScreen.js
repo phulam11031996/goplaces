@@ -15,8 +15,8 @@ import CardViewMarker from "../components/CardViewMarker";
 const initialRegion = {
   latitude: 35.2847545,
   longitude: -120.6596156,
-  latitudeDelta: 0.005,
-  longitudeDelta: 0.005,
+  latitudeDelta: 0.006,
+  longitudeDelta: 0.006,
 };
 
 const MapViewScreen = () => {

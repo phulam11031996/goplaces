@@ -1,12 +1,13 @@
-const TravelService = require("../models/TravelService");
+const TravelApiCalls = require("../apis/TravelApiCalls");
 
 const getTravelInfo = async (req, res) => {
-  const result = await TravelService.getTravelInfo(req.query);
+  const region = req.query;
+  const travelData = await TravelApiCalls.getAttractionListInBoundry(region);
 
-  if (result == -1) {
-    res.status(400).json();
+  if (travelData.length == 0) {
+    res.status(400).json(travelData);
   } else {
-    res.status(200).json(result);
+    res.status(200).json(travelData);
   }
 };
 
