@@ -1,11 +1,9 @@
 import * as React from "react";
 import axios from "axios";
 import {
-  Text,
   View,
   StyleSheet,
   SafeAreaView,
-  Dimensions,
   ActivityIndicator,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
@@ -13,9 +11,6 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { GOOGLEPLACESAUTOCOMPLETE_API, DEV_BACKEND_URL } from "@env";
 
 import CardViewMarker from "../components/CardViewMarker";
-import * as Progress from "react-native-progress";
-
-const { width, height } = Dimensions.get("screen");
 
 const initialRegion = {
   latitude: 35.2847545,
@@ -30,23 +25,19 @@ const MapViewScreen = () => {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    getNewPosition(initialRegion.latitude, initialRegion.longitude);
+    getNewPosition(initialRegion);
   }, []);
 
-  const getNewPosition = async (lat, lng) => {
+  const getNewPosition = async (region) => {
     setLoading(true);
-    const travelData = await getTravelData(lat, lng);
+    const travelData = await getTravelData(region);
     setLoading(false);
     setPlaces(travelData);
   };
 
-  const getTravelData = async (lat, lng) => {
-    const params = {
-      latitude: lat,
-      longitude: lng,
-    };
+  const getTravelData = async (region) => {
     const travelData = await axios
-      .get(DEV_BACKEND_URL + "travelinfo/", { params: params })
+      .get(DEV_BACKEND_URL + "travelinfo/", { params: region })
       .then((res) => {
         return res.data;
       })
@@ -67,21 +58,19 @@ const MapViewScreen = () => {
             key: GOOGLEPLACESAUTOCOMPLETE_API,
           }}
           onPress={async (data, details) => {
-            setRegion({
+            const newRegion = {
               latitude: details.geometry.location.lat,
               longitude: details.geometry.location.lng,
-            });
-            getNewPosition(
-              details.geometry.location.lat,
-              details.geometry.location.lng
-            );
+              latitudeDelta: region.latitudeDelta,
+              longitudeDelta: region.longitudeDelta,
+            };
+            setRegion(newRegion);
+            getNewPosition(newRegion);
           }}
         />
       </SafeAreaView>
-      {loading ? (
+      {loading && (
         <ActivityIndicator style={styles.loading} size="large" color="tomato" />
-      ) : (
-        <Text>Hello</Text>
       )}
       <MapView style={styles.map} region={region} mapType={"standard"}>
         {places &&
@@ -94,7 +83,13 @@ const MapViewScreen = () => {
               }}
               image={require("../assets/map-marker.png")}
               onPress={(data) => {
-                setRegion(data.nativeEvent.coordinate);
+                const newRegion = {
+                  latitude: data.nativeEvent.coordinate.latitude,
+                  latitude: data.nativeEvent.coordinate.longitude,
+                  latitudeDelta: region.latitudeDelta,
+                  longitudeDelta: region.longitudeDelta,
+                };
+                setRegion(newRegion);
               }}
             >
               <CardViewMarker name={place.name} photoUrl={place.photoUrl} />
