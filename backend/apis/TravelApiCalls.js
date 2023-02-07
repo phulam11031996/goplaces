@@ -38,7 +38,7 @@ const getAttractionListInBoundry = async (region) => {
       console.error(err);
       travelData = [];
     });
-  travelData = [];
+
   const cleanTravelData = travelData
     .filter((ele) => "name" in ele && "latitude" in ele && "longitude" in ele)
     .map((ele) => {
@@ -46,17 +46,17 @@ const getAttractionListInBoundry = async (region) => {
         name: ele.name,
         latitude: ele.latitude,
         longitude: ele.longitude,
-        numReviews: "num_reviews" in ele ? ele.num_reviews : "0",
-        photo: "photo" in ele ? ele.photo.images.medium.url : "",
+        numReviews: "num_reviews" in ele ? ele.num_reviews : undefined,
+        photo: "photo" in ele ? ele.photo.images.medium.url : undefined,
         ranking_subcategory:
-          "ranking_subcategory" in ele ? ele.ranking_subcategory : "",
-        rating: "rating" in ele ? ele.rating : "0.0",
+          "ranking_subcategory" in ele ? ele.ranking_subcategory : undefined,
+        rating: "rating" in ele ? ele.rating : undefined,
         isClosed: "is_closed" in ele ? ele.is_closed : false,
-        description: "description" in ele ? ele.description : "",
-        webUrl: "web_url" in ele ? ele.web_url : "",
-        phone: "phone" in ele ? ele.phone : "",
-        address_obj: "address_obj" in ele ? ele.address_obj : "",
-        subtype: "subtype" in ele ? ele.subtype.name : "",
+        description: "description" in ele ? ele.description : undefined,
+        webUrl: "web_url" in ele ? ele.web_url : undefined,
+        phone: "phone" in ele ? ele.phone : undefined,
+        address_obj: "address_obj" in ele ? ele.address_obj : undefined,
+        subtype: "subtype" in ele ? ele.subtype[0].name : undefined,
       };
     });
   return cleanTravelData;

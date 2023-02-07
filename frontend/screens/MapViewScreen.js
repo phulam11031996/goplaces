@@ -72,7 +72,14 @@ const MapViewScreen = () => {
       {loading && (
         <ActivityIndicator style={styles.loading} size="large" color="tomato" />
       )}
-      <MapView style={styles.map} region={region} mapType={"standard"}>
+      <MapView
+        style={styles.map}
+        region={region}
+        mapType={"standard"}
+        onRegionChangeComplete={(newRegion, isGesture = null) =>
+          getNewPosition(newRegion)
+        }
+      >
         {places &&
           places.map((place, index) => (
             <Marker
@@ -92,7 +99,7 @@ const MapViewScreen = () => {
                 setRegion(newRegion);
               }}
             >
-              <CardViewMarker name={place.name} photoUrl={place.photoUrl} />
+              <CardViewMarker placeInfo={place} />
             </Marker>
           ))}
       </MapView>
