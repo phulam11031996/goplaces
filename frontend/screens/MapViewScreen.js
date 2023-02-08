@@ -1,5 +1,6 @@
 import * as React from "react";
 import axios from "axios";
+import _ from "lodash";
 import {
   View,
   StyleSheet,
@@ -28,12 +29,12 @@ const MapViewScreen = () => {
     getNewPosition(initialRegion);
   }, []);
 
-  const getNewPosition = async (region) => {
+  const getNewPosition = _.debounce(async (newRegion) => {
     setLoading(true);
-    const travelData = await getTravelData(region);
+    const travelData = await getTravelData(newRegion);
     setLoading(false);
     setPlaces(travelData);
-  };
+  }, 2000);
 
   const getTravelData = async (region) => {
     const travelData = await axios
@@ -76,9 +77,9 @@ const MapViewScreen = () => {
         style={styles.map}
         region={region}
         mapType={"standard"}
-        onRegionChangeComplete={(newRegion, isGesture = null) =>
-          getNewPosition(newRegion)
-        }
+        onRegionChangeComplete={(newRegion, isGesture = null) => {
+          getNewPosition(newRegion);
+        }}
       >
         {places &&
           places.map((place, index) => (
