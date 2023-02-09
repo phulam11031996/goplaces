@@ -6,29 +6,24 @@ import {
   TouchableOpacity,
   Image,
   FlatList,
-  ActivityIndicator,
+  ActivityIndicator
 } from "react-native";
 
-export default class CardViewScreen extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [],
-    };
-  }
+const CardViewScreen = (props) => {
+  const [items, setItems] = React.useState([]);
 
-  componentDidMount() {
-    this.getDataFromAPI();
-  }
+  React.useEffect(() => {
+    getDataFromAPI();
+  }, []);
 
-  getDataFromAPI = async () => {
+  const getDataFromAPI = async () => {
     const endPoint = "https://jsonplaceholder.typicode.com/photos?_limit=10";
     const response = await fetch(endPoint);
     const data = await response.json();
-    this.setState({ items: data });
+    setItems(data);
   };
 
-  _renderItem = ({ item, index }) => {
+  const _renderItem = ({ item, index }) => {
     let { cardText, card, cardImage } = style;
     return (
       <TouchableOpacity style={card}>
@@ -43,32 +38,26 @@ export default class CardViewScreen extends React.PureComponent {
     );
   };
 
-  render() {
-    let { container, loader } = style;
-    let { items } = this.state;
-    if (items.length === 0) {
-      return (
-        <View style={loader}>
-          <ActivityIndicator size="large" color="#0000ff" />
-        </View>
-      );
-    }
+  let { container, loader } = style;
+  if (items.length === 0) {
     return (
-      <FlatList
-        style={container}
-        data={items}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={this._renderItem}
-      />
+      <View style={loader}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
     );
   }
-}
+  return (
+    <FlatList
+      style={container}
+      data={items}
+      keyExtractor={(item, index) => index.toString()}
+      renderItem={_renderItem}
+    />
+  );
+};
 
 const style = StyleSheet.create({
   container: {
-    // flex: 1,
-    // alighItems: 'center',
-    // justifyContent: 'center'
     marginTop: 40,
   },
   cardText: {
@@ -95,3 +84,5 @@ const style = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+export default CardViewScreen;
