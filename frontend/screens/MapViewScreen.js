@@ -11,8 +11,6 @@ import MapView, { Marker } from "react-native-maps";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLEPLACESAUTOCOMPLETE_API, DEV_BACKEND_URL } from "@env";
 
-import CardViewMarker from "../components/CardViewMarker";
-
 const initialRegion = {
   latitude: 35.2847545,
   longitude: -120.6596156,
@@ -22,7 +20,7 @@ const initialRegion = {
 
 const MapViewScreen = () => {
   const [region, setRegion] = React.useState(initialRegion);
-  const [places, setPlaces] = React.useState(null);
+  const [places, setPlaces] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
@@ -45,6 +43,7 @@ const MapViewScreen = () => {
       .catch((err) => {
         console.log(err);
       });
+      setTravelData(travelData);
     return travelData;
   };
 
