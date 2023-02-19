@@ -6,11 +6,14 @@ import {
   TouchableOpacity,
   Image,
   FlatList,
-  ActivityIndicator,
 } from "react-native";
 
 const CardViewScreen = (props) => {
-  const [places, setPlaces] = React.useState(props.places);
+  const [places, setPlaces] = React.useState([]);
+
+  React.useEffect(() => {
+    setPlaces(props.places);
+  }, [props]);
 
   const _renderItem = ({ item, index }) => {
     return (
@@ -31,7 +34,7 @@ const CardViewScreen = (props) => {
     <View>
       <FlatList
         style={styles.container}
-        data={props.places ? props.places : places}
+        data={places}
         keyExtractor={(item, index) => index.toString()}
         renderItem={_renderItem}
       />
@@ -60,11 +63,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     resizeMode: "cover",
-  },
-  loader: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
 
