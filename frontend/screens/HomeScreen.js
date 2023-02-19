@@ -1,12 +1,14 @@
 import * as React from "react";
-import { View, StyleSheet, SafeAreaView } from "react-native";
+import { View, StyleSheet, SafeAreaView, Text } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
-const HomeScreen = () => {
+const HomeScreen = (props) => {
   return (
-    <View
-      style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-    ></View>
+    <View>
+      <SafeAreaView>
+        <Text>{props.region}</Text>
+      </SafeAreaView>
+    </View>
   );
 };
 

@@ -10,11 +10,7 @@ import {
 } from "react-native";
 
 const CardViewScreen = (props) => {
-  const [items, setItems] = React.useState(props.travelData);
-
-  React.useEffect(() => {
-    setItems(props.travelData);
-  }, [props.travelData]);
+  const [places, setPlaces] = React.useState(props.places);
 
   const _renderItem = ({ item, index }) => {
     return (
@@ -33,10 +29,9 @@ const CardViewScreen = (props) => {
 
   return (
     <View>
-      {!items && <ActivityIndicator size="large" color="#0000ff" />}
       <FlatList
         style={styles.container}
-        data={items}
+        data={props.places ? props.places : places}
         keyExtractor={(item, index) => index.toString()}
         renderItem={_renderItem}
       />

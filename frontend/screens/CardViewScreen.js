@@ -9,7 +9,7 @@ const CardViewScreen = (props) => {
   };
   return (
     <View>
-      <CardList />
+      <CardList places={props.places}/>
     </View>
   );
 };

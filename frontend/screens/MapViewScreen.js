@@ -1,51 +1,29 @@
 import * as React from "react";
-import axios from "axios";
-import _ from "lodash";
 import {
   View,
   StyleSheet,
   SafeAreaView,
   ActivityIndicator,
 } from "react-native";
+import _ from "lodash";
 import MapView, { Marker } from "react-native-maps";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { GOOGLEPLACESAUTOCOMPLETE_API, DEV_BACKEND_URL } from "@env";
+import { GOOGLEPLACESAUTOCOMPLETE_API } from "@env";
 
-const initialRegion = {
-  latitude: 35.2847545,
-  longitude: -120.6596156,
-  latitudeDelta: 0.006,
-  longitudeDelta: 0.006,
-};
+import getTravelData from "../helpers/APICalls";
+import CardViewMarker from "../components/CardViewMarker";
 
-const MapViewScreen = () => {
-  const [region, setRegion] = React.useState(initialRegion);
-  const [places, setPlaces] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
+const MapViewScreen = (props) => {
+  const [loading, setLoading] = React.useState(false);
+  const [region, setRegion] = React.useState(props.region);
 
-  React.useEffect(() => {
-    getNewPosition(initialRegion);
-  }, []);
-
-  const getNewPosition = _.debounce(async (newRegion) => {
+  const changeRegion = _.debounce(async (newRegion) => {
     setLoading(true);
     const travelData = await getTravelData(newRegion);
+    props.setRegion(newRegion);
+    props.setPlaces(travelData);
     setLoading(false);
-    setPlaces(travelData);
   }, 2000);
-
-  const getTravelData = async (region) => {
-    const travelData = await axios
-      .get(DEV_BACKEND_URL + "travelinfo/", { params: region })
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-      setTravelData(travelData);
-    return travelData;
-  };
 
   return (
     <View style={styles.container}>
@@ -61,11 +39,11 @@ const MapViewScreen = () => {
             const newRegion = {
               latitude: details.geometry.location.lat,
               longitude: details.geometry.location.lng,
-              latitudeDelta: region.latitudeDelta,
-              longitudeDelta: region.longitudeDelta,
+              latitudeDelta: props.region.latitudeDelta,
+              longitudeDelta: props.region.longitudeDelta,
             };
             setRegion(newRegion);
-            getNewPosition(newRegion);
+            changeRegion(newRegion);
           }}
         />
       </SafeAreaView>
@@ -77,11 +55,12 @@ const MapViewScreen = () => {
         region={region}
         mapType={"standard"}
         onRegionChangeComplete={(newRegion, isGesture = null) => {
-          getNewPosition(newRegion);
+          setRegion(newRegion);
+          changeRegion(newRegion);
         }}
       >
-        {places &&
-          places.map((place, index) => (
+        {props.places &&
+          props.places.map((place, index) => (
             <Marker
               key={index}
               coordinate={{

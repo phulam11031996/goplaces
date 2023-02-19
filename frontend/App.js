@@ -7,7 +7,6 @@ import LoginScreen from "./screens/LoginScreen";
 const App = () => {
   return (
     <NavigationContainer>
-      {/* <LoginScreen/> */}
       <BottomTab />
     </NavigationContainer>
   );
