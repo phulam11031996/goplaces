@@ -39,7 +39,6 @@ const getAttractionListInBoundry = async (region) => {
       travelData = [];
     });
 
-    console.log(travelData);
   const cleanTravelData = travelData
     .filter((ele) => "name" in ele && "latitude" in ele && "longitude" in ele)
     .map((ele) => {
