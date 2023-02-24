@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, Image, Button, StyleSheet } from "react-native";
 import { Rating } from "react-native-ratings";
-import Ionicons from "react-native-vector-icons/Ionicons";
 
 const CardViewMarker = (props) => {
   return (

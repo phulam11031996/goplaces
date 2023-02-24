@@ -1,9 +1,17 @@
 import * as React from "react";
 import { SafeAreaView, Image, View } from "react-native";
+import BottomTab from "../components/BottomTab";
 
 const LoginScreen = () => {
   return (
-    <SafeAreaView
+    <BottomTab /> 
+  );
+};
+
+export default LoginScreen;
+
+
+{/* <SafeAreaView
       style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
     >
       <View>
@@ -13,8 +21,4 @@ const LoginScreen = () => {
           width={300}
         />
       </View>
-    </SafeAreaView>
-  );
-};
-
-export default LoginScreen;
+    </SafeAreaView> */}

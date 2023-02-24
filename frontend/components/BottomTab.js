@@ -16,7 +16,7 @@ const initialRegion = {
 };
 
 const Tab = createBottomTabNavigator();
-function BottomTab() {
+function BottomTab({}) {
   const [region, setRegion] = React.useState(initialRegion);
   const [places, setPlaces] = React.useState([]);
 

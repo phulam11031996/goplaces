@@ -1,13 +1,11 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-
-import BottomTab from "./components/BottomTab";
-import LoginScreen from "./screens/LoginScreen";
+import Navigation from "./Navigation";
 
 const App = () => {
   return (
     <NavigationContainer>
-      <BottomTab />
+      <Navigation />
     </NavigationContainer>
   );
 };
