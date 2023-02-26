@@ -1,18 +1,32 @@
-import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import * as React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
 
-import LoginScreen from '../screens/LoginScreen';
+import SignIn from "../screens/SignInScreen";
+import SignUp from "../screens/SignUpScreen";
+import BottomTab from "./BottomTab";
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
-const AuthStack = () => {
+const NavigationStack = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Login" component={LoginScreen} />
+    <Stack.Navigator>
+      <Stack.Screen
+        name="SignInScreen"
+        component={SignIn}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SignUpScreen"
+        component={SignUp}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="BottomTab"
+        component={BottomTab}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };
 
-export default AuthStack;
-
-// https://www.youtube.com/watch?v=5RUl8exLI-c&ab_channel=PradipDebnath
+export default NavigationStack;

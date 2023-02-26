@@ -6,7 +6,7 @@ const Login = (props) => {
       <SafeAreaView>
         <Button
           title="Sign In"
-          onPress={() => props.navigation.navigate("MainScreen")}
+          onPress={() => props.navigation.navigate("BottomTab")}
         />
         <Button
           title="Sign up"
