@@ -5,6 +5,10 @@ const HomeScreen = (props) => {
   return (
     <View>
       <SafeAreaView>
+        <Button
+          title="Go back to Sign In"
+          onPress={() => props.navigation.navigate("SignInScreen")}
+        />
         <Text>{props.region}</Text> 
       </SafeAreaView>
     </View>
