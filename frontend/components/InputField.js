@@ -9,7 +9,6 @@ const InputField = (props) => {
         borderBottomColor: "#ccc",
         borderBottomWidth: 1,
         paddingBottom: 8,
-        marginBottom: 25,
       }}
     >
       {props.icon}
@@ -20,6 +19,7 @@ const InputField = (props) => {
           keyboardType={props.keyboardType}
           secureTextEntry={true}
           onChangeText={props.onChangeText}
+          onBlur={props.onBlur}
           value={props.value}
         />
       ) : (
@@ -28,6 +28,7 @@ const InputField = (props) => {
           placeholder={props.label}
           keyboardType={props.keyboardType}
           onChangeText={props.onChangeText}
+          onBlur={props.onBlur}
           value={props.value}
         />
       )}
