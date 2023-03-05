@@ -16,8 +16,15 @@ const CardViewScreen = (props) => {
   }, [props]);
 
   const _renderItem = ({ item, index }) => {
+    // console.log(item); 
     return (
-      <TouchableOpacity style={styles.card}>
+      <TouchableOpacity style={styles.card}
+        onPress={() => props.navigation.navigate("ActivityDetailScreen", 
+        {name: item.name,
+        photo: item.photo, 
+        address: item.address_obj,
+        webUrl: item.webUrl,
+        numReviews: item.numReviews})}>
         <Image
           style={styles.cardImage}
           source={{
