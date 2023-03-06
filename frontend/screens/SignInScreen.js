@@ -1,7 +1,8 @@
 import * as React from "react";
 import {
+  Text,
   TextInput,
-  Text, View,
+  View,
   SafeAreaView,
   Image,
   StyleSheet,
@@ -26,6 +27,8 @@ const loginValidationSchema = yup.object().shape({
 });
 
 const SignInScreen = (props) => {
+  const [text, onChangeText] = React.useState("Useless Text");
+
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
@@ -229,3 +232,4 @@ const styles = StyleSheet.create({
 });
 
 export default SignInScreen;
+

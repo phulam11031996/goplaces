@@ -10,15 +10,14 @@ import {
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Formik } from "formik";
 import * as yup from "yup";
+import _ from "lodash";
 
 import InputField from "../components/InputField";
 import CustomButton from "../components/CustomButton";
+import APICalls from "../helpers/APICalls";
 
 const signUpValidationSchema = yup.object().shape({
-  fullName: yup
-    .string()
-    .min(3, ({ min }) => `Name must be at least ${min} characters`)
-    .required("Name is Required"),
+  fullName: yup.string().required("Name is Required"),
   email: yup
     .string()
     .email("Please enter valid email")
@@ -44,9 +43,17 @@ const SignUpScreen = (props) => {
       }}
       validationSchema={signUpValidationSchema}
       validateOnMount={true}
-      onSubmit={(values, actions) => {
+      onSubmit={async (values, actions) => {
         actions.resetForm();
-        props.navigation.navigate("SignInScreen");
+        const newAccount = {
+          fullName: values.fullName,
+          email: values.email,
+          password: values.password,
+        };
+        const isRegister = await APICalls.register(newAccount);
+        if (isRegister) {
+          props.navigation.navigate("SignInScreen");
+        }
       }}
     >
       {(formikProps) => (
