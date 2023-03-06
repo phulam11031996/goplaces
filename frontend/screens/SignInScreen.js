@@ -14,6 +14,7 @@ import * as yup from "yup";
 
 import InputField from "../components/InputField";
 import CustomButton from "../components/CustomButton";
+import APICalls from "../helpers/APICalls";
 
 const loginValidationSchema = yup.object().shape({
   email: yup
@@ -34,9 +35,16 @@ const SignInScreen = (props) => {
       initialValues={{ email: "", password: "" }}
       validationSchema={loginValidationSchema}
       validateOnMount={true}
-      onSubmit={(values, actions) => {
+      onSubmit={async (values, actions) => {
         actions.resetForm();
-        props.navigation.navigate("BottomTab");
+        const loginInfo = {
+          email: values.email,
+          password: values.password,
+        };
+        const isLogin = await APICalls.login(loginInfo);
+        if (isLogin) {
+          props.navigation.navigate("BottomTab");
+        }
       }}
     >
       {(formikProps) => (

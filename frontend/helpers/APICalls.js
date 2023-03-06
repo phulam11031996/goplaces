@@ -25,7 +25,21 @@ const register = async (newAccount) => {
   return isRegister;
 };
 
+const login = async (loginInfo) => {
+  const isLogin = await axios
+    .post(DEV_BACKEND_URL + "api/login", loginInfo)
+    .then((res) => {
+      return true
+    })
+    .catch((err) => {
+      console.error(err.response.data.error);
+      return false;
+    });
+  return isLogin;
+};
+
 export default {
   register,
+  login,
   getTravelData,
 };
