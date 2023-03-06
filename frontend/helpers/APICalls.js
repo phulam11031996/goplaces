@@ -7,10 +7,25 @@ const getTravelData = async (region) => {
     .then((res) => {
       return res.data;
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
   return travelData;
 };
 
-export default getTravelData;
+const register = async (newAccount) => {
+  const isRegister = await axios
+    .post(DEV_BACKEND_URL + "api/register", newAccount)
+    .then((res) => {
+      console.warn(res.data.messages);
+      return true;
+    })
+    .catch((err) => {
+      console.error(err.response.data.messages);
+      return false;
+    });
+  return isRegister;
+};
+
+export default {
+  register,
+  getTravelData,
+};
