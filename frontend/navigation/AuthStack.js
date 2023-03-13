@@ -12,11 +12,6 @@ const NavigationStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="BottomTab"
-        component={BottomTab}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
         name="SignInScreen"
         component={SignIn}
         options={{ headerShown: false }}
@@ -30,6 +25,11 @@ const NavigationStack = () => {
         name="ActivityDetailScreen"
         component={ActivityDetailScreen}
         options={{headerBackTitle : "Back"}}
+      />
+      <Stack.Screen
+        name="BottomTab"
+        component={BottomTab}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

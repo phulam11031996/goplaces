@@ -6,7 +6,7 @@ import HomeScreen from "../screens/HomeScreen";
 import PreferenceScreen from "../screens/PreferenceScreen";
 import CardViewScreen from "../screens/CardViewScreen";
 import MapViewScreen from "../screens/MapViewScreen";
-import getTravelData from "../helpers/APICalls";
+import APICalls from "../helpers/APICalls";
 
 const initialRegion = {
   latitude: 35.2847545,
@@ -25,7 +25,7 @@ function BottomTab({}) {
   }, []);
 
   const fetchTravelData = async (newRegion) => {
-    const travelData = await getTravelData(newRegion);
+    const travelData = await APICalls.getTravelData(newRegion);
     setPlaces(travelData);
   };
 
