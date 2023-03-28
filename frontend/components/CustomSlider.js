@@ -3,7 +3,7 @@ import { Slider } from "@rneui/base";
 import { Text, View, StyleSheet } from "react-native";
 
 const CustomeSlider = (props) => {
-  const [distance, setDistance] = React.useState(30);
+  const [distance, setDistance] = React.useState(20);
   const state = {
     minDistance: 10,
     maxDistance: 30,
@@ -18,7 +18,7 @@ const CustomeSlider = (props) => {
         value={distance}
         onValueChange={(val) => {
           setDistance(val);
-          console.log(val);
+          props.getPreference(props.label, val);
         }}
         thumbTintColor="tomato"
         maximumTrackTintColor="gray"

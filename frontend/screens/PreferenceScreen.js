@@ -1,66 +1,107 @@
 import * as React from "react";
 import { View, Text, SectionList, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
 import CustomRating from "../components/CustomRating";
 import CustomSlider from "../components/CustomSlider";
 import CustomSwitch from "../components/CustomSwitch";
+import preference from "../helpers/Enum";
 
-const DATA = [
-  {
-    title: "Location Settings",
-    data: [
-      { label: "Restaurants", component: <CustomSwitch />,
-      },
-      {
-        label: "Hotels",
-        component: <CustomSwitch />,
-      },
-      {
-        label: "Attractions",
-        component: <CustomSwitch />,
-      },
-    ],
-  },
-  {
-    title: "Recommendation Systems",
-    data: [
-      {
-        label: "Item-based",
-        component: <CustomSwitch />,
-      },
-      {
-        label: "User-based",
-        component: <CustomSwitch />,
-      },
-      {
-        label: "Content-based",
-        component: <CustomSwitch />,
-      },
-    ],
-  },
-  {
-    title: "Others",
-    data: [
-      {
-        label: "Distance",
-        component: <CustomSlider />,
-      },
-      {
-        label: "Rating",
-        component: (
-          <CustomRating
-            count={5}
-            defaultRating={1}
-            isDisabled={false}
-            size={20}
-          />
-        ),
-      },
-    ],
-  },
-];
+const PreferenceScreen = (props) => {
+  const DATA = [
+    {
+      title: "Location Settings",
+      data: [
+        {
+          label: preference.RESTAURANTS,
+          component: (
+            <CustomSwitch
+              label={preference.RESTAURANTS}
+              getPreference={props.getPreference}
+            />
+          ),
+        },
+        {
+          label: preference.HOTELS,
+          component: (
+            <CustomSwitch
+              label={preference.HOTELS}
+              getPreference={props.getPreference}
+            />
+          ),
+        },
+        {
+          label: preference.ATTRACTIONS,
+          component: (
+            <CustomSwitch
+              label={preference.ATTRACTIONS}
+              getPreference={props.getPreference}
+            />
+          ),
+        },
+      ],
+    },
+    {
+      title: "Recommendation Systems",
+      data: [
+        {
+          label: preference.ITEMBASED,
+          component: (
+            <CustomSwitch
+              label={preference.ITEMBASED}
+              getPreference={props.getPreference}
+            />
+          ),
+        },
+        {
+          label: preference.USERBASED,
+          component: (
+            <CustomSwitch
+              label={preference.USERBASED}
+              getPreference={props.getPreference}
+            />
+          ),
+        },
+        {
+          label: preference.CONTENTBASED,
+          component: (
+            <CustomSwitch
+              label={preference.CONTENTBASED}
+              getPreference={props.getPreference}
+            />
+          ),
+        },
+      ],
+    },
+    {
+      title: "Others",
+      data: [
+        {
+          label: preference.DISTANCE,
+          component: (
+            <CustomSlider
+              label={preference.DISTANCE}
+              getPreference={props.getPreference}
+            />
+          ),
+        },
+        {
+          label: preference.RATING,
+          component: (
+            <CustomRating
+              count={5}
+              defaultRating={1}
+              isDisabled={false}
+              size={20}
+              label={preference.RATING}
+              getPreference={props.getPreference}
+            />
+          ),
+        },
+      ],
+    },
+  ];
 
-const PreferenceScreen = () => {
   const renderSectionHeader = ({ section }) => (
     <View style={styles.headerContainer}>
       <Text style={styles.headerTitle}>{section.title}</Text>

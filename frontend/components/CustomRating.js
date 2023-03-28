@@ -7,7 +7,9 @@ const CustomRating = (props) => {
       count={props.count}
       defaultRating={props.defaultRating}
       isDisabled={props.isDisabled}
-      onFinishRating={(val) => console.log(val)}
+      onFinishRating={(val) => {
+        props.getPreference(props.label, val);
+      }}
       size={props.size}
       reviewSize
     />

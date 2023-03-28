@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { View, Switch, StyleSheet } from "react-native";
 
-const CustomSwitch = () => {
-  const [isEnabled, setIsEnabled] = useState(false);
+const CustomSwitch = (props) => {
+  const [isEnabled, setIsEnabled] = useState(true);
 
   return (
     <View style={styles.container}>
@@ -12,7 +12,7 @@ const CustomSwitch = () => {
         ios_backgroundColor="gray"
         onValueChange={() => {
           setIsEnabled(!isEnabled);
-          console.log(!isEnabled);
+          props.getPreference(props.label, !isEnabled);
         }}
         value={isEnabled}
       />

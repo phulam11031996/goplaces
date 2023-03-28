@@ -7,6 +7,7 @@ import PreferenceScreen from "../screens/PreferenceScreen";
 import CardViewScreen from "../screens/CardViewScreen";
 import MapViewScreen from "../screens/MapViewScreen";
 import APICalls from "../helpers/APICalls";
+import preference from "../helpers/Enum";
 
 const initialRegion = {
   latitude: 35.2847545,
@@ -16,9 +17,17 @@ const initialRegion = {
 };
 
 const Tab = createBottomTabNavigator();
-function BottomTab({}) {
+const BottomTab = (props) => {
   const [region, setRegion] = React.useState(initialRegion);
   const [places, setPlaces] = React.useState([]);
+  const [pre, setPre] = React.useState({
+    restaurants: true,
+    hotels: true,
+    attractions: true,
+    recommendations: true,
+    distance: 20,
+    rating: 1,
+  });
 
   React.useEffect(() => {
     fetchTravelData(region);
@@ -27,6 +36,60 @@ function BottomTab({}) {
   const fetchTravelData = async (newRegion) => {
     const travelData = await APICalls.getTravelData(newRegion);
     setPlaces(travelData);
+  };
+  const getPreference = (pree, value) => {
+    switch (pree) {
+      case preference.RESTAURANTS:
+        setPre((prevState) => ({
+          ...prevState,
+          restaurants: value,
+        }));
+        console.log(pre);
+        break;
+      case preference.HOTELS:
+        setPre((prevState) => ({
+          ...prevState,
+          hotels: value,
+        }));
+        break;
+      case preference.ATTRACTIONS:
+        setPre((prevState) => ({
+          ...prevState,
+          attractions: value,
+        }));
+      case preference.ITEMBASED:
+        setPre((prevState) => ({
+          ...prevState,
+          recommendations: value,
+        }));
+        break;
+      case preference.USERBASED:
+        setPre((prevState) => ({
+          ...prevState,
+          recommendations: value,
+        }));
+        break;
+      case preference.CONTENTBASED:
+        setPre((prevState) => ({
+          ...prevState,
+          recommendations: value,
+        }));
+        break;
+      case preference.DISTANCE:
+        setPre((prevState) => ({
+          ...prevState,
+          distance: value,
+        }));
+        break;
+      case preference.RATING:
+        setPre((prevState) => ({
+          ...prevState,
+          rating: value,
+        }));
+        break;
+      default:
+        console.log("Shouldn't get here");
+    }
   };
 
   return (
@@ -51,7 +114,9 @@ function BottomTab({}) {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Preference" component={PreferenceScreen} />
+      <Tab.Screen name="Preference">
+        {(props) => <PreferenceScreen getPreference={getPreference} />}
+      </Tab.Screen>
       <Tab.Screen name="CardView">
         {(props) => <CardViewScreen places={places} />}
       </Tab.Screen>
@@ -67,6 +132,6 @@ function BottomTab({}) {
       </Tab.Screen>
     </Tab.Navigator>
   );
-}
+};
 
 export default BottomTab;
