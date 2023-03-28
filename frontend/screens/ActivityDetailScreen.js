@@ -1,79 +1,123 @@
-import * as React from "react";
-import { Text, View, StyleSheet, Image } from "react-native";
+import React from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Linking,
+} from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import CustomRating from "../components/CustomRating";
 
-const ActivityDetailScreen = ({ route }) => {
-  const {name, photo, address, webUrl, numReviews} = route.params; 
+const ActivityDetailScreen = (props) => {
+  const placeInfo = props.route.params;
+
+  const openMaps = () => {
+    const { street1, city, state, postalcode } = placeInfo.address_obj;
+    const address = `${street1} ${city} ${state} ${postalcode}`;
+    Linking.openURL(`https://www.google.com/maps/place/${address}`);
+  };
+
+  const callNumber = () => {
+    const phoneNumber = placeInfo.phone;
+    Linking.openURL(`tel:${phoneNumber}`);
+  };
+
   return (
-    <View style={styles.container}>
-        <Image style={styles.image} source={{ uri: photo }} />
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.label}>Address</Text>
-        <View style={styles.addressContainer}>
-        <Text style={styles.address}>{address.street1}</Text>
-        <Text style={styles.address}>
-          {address.city}, {address.state} {address.postalcode}
-        </Text>
-        <Text style={styles.country}>{address.country}</Text>
-        <Text style={styles.label}>Reviews</Text>
-        <Text style={styles.numReviews}>numReviews: {numReviews}</Text>
-        <Text style={styles.label}> Activity Website </Text> 
-        <Text style={styles.webUrl}>{webUrl}</Text>
+    <ScrollView>
+      <Image style={styles.image} source={{ uri: placeInfo.photo }} />
+      <View style={styles.box}>
+        <Text style={styles.name}>{placeInfo.name}</Text>
       </View>
-    </View>
+
+      <View style={styles.box}>
+        <View style={styles.showHorizontal}>
+        <Text style={styles.label}>Address:</Text>
+        <TouchableOpacity onPress={openMaps}>
+          <Text style={[styles.value, styles.link]}>
+            {placeInfo.address_obj.street1} {placeInfo.address_obj.city}{" "}
+            {placeInfo.address_obj.state}, {placeInfo.address_obj.postalcode}
+          </Text>
+        </TouchableOpacity>
+
+        </View>
+        <Text style={styles.label}>Website:</Text>
+        <TouchableOpacity onPress={() => Linking.openURL(placeInfo.webUrl)}>
+          <Text style={[styles.link, styles.value]}>{placeInfo.webUrl}</Text>
+        </TouchableOpacity>
+        <Text style={styles.label}>Phone:</Text>
+        <TouchableOpacity onPress={callNumber}>
+          <Text style={[styles.link, styles.value]}>{placeInfo.phone}</Text>
+        </TouchableOpacity>
+        <Text style={styles.label}>Hours:</Text>
+        <Text style={styles.value}>
+          {placeInfo.isClosed ? "Open" : "Closed"}
+        </Text>
+      </View>
+
+      <View style={styles.box}>
+        <Text style={styles.label}>Rating:</Text>
+        <CustomRating
+          count={5}
+          defaultRating={placeInfo.rating}
+          isDisabled={true}
+          size={15}
+        />
+        <Text style={styles.label}>Number of Reviews:</Text>
+        <Text style={styles.value}>{placeInfo.numReviews}</Text>
+        <Text style={styles.label}>Reward:</Text>
+        <Text style={styles.value}>{placeInfo.ranking_subcategory}</Text>
+      </View>
+
+      <View style={styles.box}>
+        <Text style={styles.label}>Description:</Text>
+        <Text style={styles.value}>{placeInfo.description}</Text>
+        <Text style={styles.label}>Subtype:</Text>
+        <Text style={styles.value}>{placeInfo.subtype}</Text>
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: "center",
-      justifyContent: "flex-start",
-      paddingTop: 20,
-      backgroundColor: "#E5F5E5"
-    },
-    image: {
-      width: "100%",
-      height: 200,
-      resizeMode: "cover",
-    },
-    name: {
-      fontSize: 24,
-      fontWeight: "bold",
-      marginVertical: 25,
-      marginTop: 20
-    },
-    addressContainer: {
-      alignItems: "center",
-      justifyContent: "center",
-      marginVertical: 0,
-    },
-    address: {
-      fontSize: 16,
-      textAlign: "center",
-    },
-    country: {
-        fontSize: 16, 
-        textAlign: "center", 
-        marginBottom: 50
-    },
-    webUrl: {
-      fontSize: 13,
-      marginVertical: 10,
-      textDecorationLine: "underline",
-      marginTop: 0
-    },
-    numReviews: {
-        fontSize: 16,
-        marginVertical: 10, 
-        textAlign: "center",
-        marginTop: 0, 
-        marginBottom: 50
-    }, 
-    label: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginTop: 5
-    },
-  });
+  image: {
+    height: 200,
+    width: "100%",
+    resizeMode: "cover",
+  },
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 10,
+  },
+  name: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  link: {
+    color: "blue",
+    textDecorationLine: "underline",
+  },
+  box: {
+    backgroundColor: "#fff",
+    borderWidth: 1,
+    borderColor: "#ccc",
+    //  flexDirection: "row",
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+  value: {
+    fontSize: 14,
+    marginBottom: 10,
+  },
+  showHorizontal: {
+    flexDirection: "row",
+  },
+});
 
-export default ActivityDetailScreen; 
+export default ActivityDetailScreen;

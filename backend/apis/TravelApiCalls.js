@@ -40,12 +40,19 @@ const getAttractionListInBoundry = async (region) => {
     });
 
   const cleanTravelData = travelData
-    .filter((ele) => "name" in ele && "latitude" in ele && "longitude" in ele)
+    .filter(
+      (ele) =>
+        "name" in ele &&
+        "latitude" in ele &&
+        "longitude" in ele &&
+        "address_obj" in ele
+    )
     .map((ele) => {
       return {
         name: ele.name,
         latitude: ele.latitude,
         longitude: ele.longitude,
+        address_obj: ele.address_obj,
         numReviews: "num_reviews" in ele ? ele.num_reviews : undefined,
         photo: "photo" in ele ? ele.photo.images.medium.url : undefined,
         ranking_subcategory:
@@ -55,10 +62,10 @@ const getAttractionListInBoundry = async (region) => {
         description: "description" in ele ? ele.description : undefined,
         webUrl: "web_url" in ele ? ele.web_url : undefined,
         phone: "phone" in ele ? ele.phone : undefined,
-        address_obj: "address_obj" in ele ? ele.address_obj : undefined,
         subtype: "subtype" in ele ? ele.subtype[0].name : undefined,
       };
     });
+  console.log(cleanTravelData);
   return cleanTravelData;
 };
 

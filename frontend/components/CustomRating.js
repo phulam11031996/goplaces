@@ -4,10 +4,11 @@ import { AirbnbRating } from "@rneui/base";
 const CustomRating = (props) => {
   return (
     <AirbnbRating
-      count={5}
-      defaultRating={1}
+      count={props.count}
+      defaultRating={props.defaultRating}
+      isDisabled={props.isDisabled}
       onFinishRating={(val) => console.log(val)}
-      size={20}
+      size={props.size}
       reviewSize
     />
   );

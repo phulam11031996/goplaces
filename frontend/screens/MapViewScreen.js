@@ -10,7 +10,7 @@ import MapView, { Marker } from "react-native-maps";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLEPLACESAUTOCOMPLETE_API } from "@env";
 
-import getTravelData from "../helpers/APICalls";
+import APICalls from "../helpers/APICalls";
 import CardViewMarker from "../components/CardViewMarker";
 
 const MapViewScreen = (props) => {
@@ -19,7 +19,7 @@ const MapViewScreen = (props) => {
 
   const changeRegion = _.debounce(async (newRegion) => {
     setLoading(true);
-    const travelData = await getTravelData(newRegion);
+    const travelData = await APICalls.getTravelData(newRegion);
     props.setRegion(newRegion);
     props.setPlaces(travelData);
     setLoading(false);

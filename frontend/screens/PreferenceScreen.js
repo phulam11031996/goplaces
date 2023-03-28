@@ -9,9 +9,7 @@ const DATA = [
   {
     title: "Location Settings",
     data: [
-      {
-        label: "Restaurants",
-        component: <CustomSwitch />,
+      { label: "Restaurants", component: <CustomSwitch />,
       },
       {
         label: "Hotels",
@@ -49,7 +47,14 @@ const DATA = [
       },
       {
         label: "Rating",
-        component: <CustomRating />,
+        component: (
+          <CustomRating
+            count={5}
+            defaultRating={1}
+            isDisabled={false}
+            size={20}
+          />
+        ),
       },
     ],
   },
@@ -78,6 +83,7 @@ const PreferenceScreen = () => {
           keyExtractor={(item, index) => item + index}
           renderItem={renderItem}
           renderSectionHeader={renderSectionHeader}
+          scrollEnabled={true}
         />
       </SafeAreaView>
     </View>
@@ -111,7 +117,6 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     flexDirection: "row",
-    // flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
     paddingVertical: 12,

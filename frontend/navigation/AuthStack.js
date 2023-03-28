@@ -20,16 +20,16 @@ const NavigationStack = () => {
         name="SignUpScreen"
         component={SignUp}
         options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="ActivityDetailScreen"
-        component={ActivityDetailScreen}
-        options={{headerBackTitle : "Back"}}
       /> */}
       <Stack.Screen
         name="BottomTab"
         component={BottomTab}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ActivityDetailScreen"
+        component={ActivityDetailScreen}
+        options={{headerBackTitle : "Back"}}
       />
     </Stack.Navigator>
   );
