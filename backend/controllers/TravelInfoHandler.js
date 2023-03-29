@@ -8,7 +8,7 @@ const getTravelInfo = async (req, res) => {
   // const hotels = await TravelApiCalls.getAttractionListInBoundry(region);
   // filter rating
 
-  if (travelData.length == 0) {
+  if (attractions.length == 0) {
     res.status(400).json(attractions);
   } else {
     res.status(200).json(attractions);

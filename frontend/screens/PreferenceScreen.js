@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 10,
     marginBottom: 30,
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
   },
   safeArea: {
