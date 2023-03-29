@@ -12,6 +12,7 @@ import CustomRating from "../components/CustomRating";
 
 const ActivityDetailScreen = (props) => {
   const placeInfo = props.route.params;
+  console.log(placeInfo)
 
   const openMaps = () => {
     const { street1, city, state, postalcode } = placeInfo.address_obj;

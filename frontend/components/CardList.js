@@ -17,8 +17,10 @@ const CardViewScreen = (props) => {
 
   const _renderItem = ({ item, index }) => {
     return (
-      <TouchableOpacity style={styles.card}
-        onPress={() => props.navigation.navigate("ActivityDetailScreen", item)}>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => props.navigation.navigate("ActivityDetailScreen", item)}
+      >
         <Image
           style={styles.cardImage}
           source={{

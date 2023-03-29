@@ -6,54 +6,85 @@ import {
   Text,
   Button,
   FlatList,
+  Image,
 } from "react-native";
-const DATA = [
+
+import HomeCard from "../components/HomeCard";
+
+const fakeData = [
   {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
+    address_obj: {
+      city: "San Luis Obispo",
+      country: "United States",
+      postalcode: "93401-3521",
+      state: "CA",
+      street1: "751 Palm St",
+      street2: "",
+    },
+    description:
+      "Founded on September 1, 1772, this is considered one of the most beautiful missions in California and still serves as an active church in the community.",
+    isClosed: false,
+    latitude: "35.28063",
+    longitude: "-120.66481",
+    name: "Mission San Luis Obispo de Tolosa",
+    numReviews: "689",
+    phone: "+1 805-781-8220",
+    photo:
+      "https://media-cdn.tripadvisor.com/media/photo-s/0f/40/ec/5f/beautiful-historic-california.jpg",
+    ranking_subcategory: "#7 of 69 things to do in San Luis Obispo",
+    rating: "4.5",
+    subtype: "Missions",
+    webUrl:
+      "https://www.tripadvisor.com/Attraction_Review-g33026-d128038-Reviews-Mission_San_Luis_Obispo_de_Tolosa-San_Luis_Obispo_San_Luis_Obispo_County_California.html",
   },
   {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Third Item",
+    address_obj: {
+      city: "San Luis Obispo",
+      country: "United States",
+      postalcode: "93401-3521",
+      state: "CA",
+      street1: "751 Palm St",
+      street2: "",
+    },
+    description:
+      "Founded on September 1, 1772, this is considered one of the most beautiful missions in California and still serves as an active church in the community.",
+    isClosed: false,
+    latitude: "35.28063",
+    longitude: "-120.66481",
+    name: "Mission San Luis Obispo de Tolosa",
+    numReviews: "689",
+    phone: "+1 805-781-8220",
+    photo:
+      "https://media-cdn.tripadvisor.com/media/photo-s/0f/40/ec/5f/beautiful-historic-california.jpg",
+    ranking_subcategory: "#7 of 69 things to do in San Luis Obispo",
+    rating: "4.5",
+    subtype: "Missions",
+    webUrl:
+      "https://www.tripadvisor.com/Attraction_Review-g33026-d128038-Reviews-Mission_San_Luis_Obispo_de_Tolosa-San_Luis_Obispo_San_Luis_Obispo_County_California.html",
   },
 ];
+
 const HomeScreen = (props) => {
-  const Item = ({ title }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
-    </View>
-  );
   return (
     <View style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <Text style={styles.header}>Home</Text>
-        <View style={styles.headerContainer}>
-          <Text style={styles.headerTitle}>Visited</Text>
-        </View>
-        <FlatList
-          horizontal={true}
-          data={DATA}
-          renderItem={({ item }) => <Item title={item.title} />}
-          keyExtractor={(item) => item.id}
-        />
-        <View style={styles.headerContainer}>
-          <Text style={styles.headerTitle}>Recommended</Text>
-        </View>
-        <FlatList
-          horizontal={true}
-          data={DATA}
-          renderItem={({ item }) => <Item title={item.title} />}
-          keyExtractor={(item) => item.id}
-        />
-        <Button
-          title="Go back to Sign In"
-          onPress={() => props.navigation.navigate("SignInScreen")}
-        />
-      </SafeAreaView>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerTitle}>Visited</Text>
+      </View>
+      <FlatList
+        horizontal={true}
+        data={fakeData}
+        renderItem={({ item }) => <HomeCard placeInfo={item} />}
+        keyExtractor={(item) => item.id}
+      />
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerTitle}>Recommended</Text>
+      </View>
+      <FlatList
+        horizontal={true}
+        data={fakeData}
+        renderItem={({ item }) => <HomeCard placeInfo={item} />}
+        keyExtractor={(item) => item.id}
+      />
     </View>
   );
 };
@@ -63,13 +94,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-  header: {
-    textAlign: "center",
-    marginTop: 10,
-    marginBottom: 30,
-    fontSize: 20,
-    fontWeight: "bold",
-  },
   headerContainer: {
     backgroundColor: "#F0F2F5",
     paddingVertical: 8,
@@ -78,15 +102,6 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontWeight: "bold",
     fontSize: 18,
-  },
-  item: {
-    backgroundColor: "#f9c2ff",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
-  title: {
-    fontSize: 32,
   },
 });
 

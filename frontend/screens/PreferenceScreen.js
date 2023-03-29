@@ -1,6 +1,5 @@
 import * as React from "react";
 import { View, Text, SectionList, StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 import CustomRating from "../components/CustomRating";
 import CustomSlider from "../components/CustomSlider";
@@ -111,22 +110,19 @@ const PreferenceScreen = (props) => {
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
       <Text style={styles.itemLabel}>{item.label}</Text>
-      <View style={styles.itemComponentContainer}>{item.component}</View>
+      <View>{item.component}</View>
     </View>
   );
 
   return (
     <View style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <Text style={styles.header}>Preference</Text>
-        <SectionList
-          sections={DATA}
-          keyExtractor={(item, index) => item + index}
-          renderItem={renderItem}
-          renderSectionHeader={renderSectionHeader}
-          scrollEnabled={true}
-        />
-      </SafeAreaView>
+      <SectionList
+        sections={DATA}
+        keyExtractor={(item, index) => item + index}
+        renderItem={renderItem}
+        renderSectionHeader={renderSectionHeader}
+        scrollEnabled={true}
+      />
     </View>
   );
 };
@@ -134,18 +130,7 @@ const PreferenceScreen = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F0F2F5",
-  },
-  header: {
-    textAlign: "center",
-    marginTop: 10,
-    marginBottom: 30,
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "white",
   },
   headerContainer: {
     backgroundColor: "#F0F2F5",
@@ -168,11 +153,8 @@ const styles = StyleSheet.create({
   },
   itemLabel: {
     flex: 1,
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "500",
-  },
-  itemComponentContainer: {
-    flex: 0,
   },
 });
 

@@ -110,7 +110,8 @@ const BottomTab = (props) => {
         },
         tabBarActiveTintColor: "tomato",
         tabBarInactiveTintColor: "gray",
-        headerShown: false,
+        headerShown:
+          route.name === "Home" || route.name === "Preference" ? true : false,
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
