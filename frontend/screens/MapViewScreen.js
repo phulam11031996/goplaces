@@ -19,7 +19,7 @@ const MapViewScreen = (props) => {
 
   const changeRegion = _.debounce(async (newRegion) => {
     setLoading(true);
-    const travelData = await APICalls.getTravelData(newRegion);
+    const travelData = await APICalls.getTravelData(newRegion, props.pre);
     props.setRegion(newRegion);
     props.setPlaces(travelData);
     setLoading(false);

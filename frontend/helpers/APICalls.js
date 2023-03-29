@@ -1,9 +1,11 @@
 import axios from "axios";
 import { DEV_BACKEND_URL } from "@env";
 
-const getTravelData = async (region) => {
+const getTravelData = async (region, pre) => {
   const travelData = await axios
-    .get(DEV_BACKEND_URL + "travelinfo/", { params: region })
+    .get(DEV_BACKEND_URL + "travelinfo/", {
+      params: { region: region, pre: pre },
+    })
     .then((res) => {
       return res.data;
     })
@@ -29,7 +31,7 @@ const login = async (loginInfo) => {
   const isLogin = await axios
     .post(DEV_BACKEND_URL + "api/login", loginInfo)
     .then((res) => {
-      return true
+      return true;
     })
     .catch((err) => {
       console.error(err.response.data.error);
@@ -37,7 +39,6 @@ const login = async (loginInfo) => {
     });
   return isLogin;
 };
-
 
 export default {
   register,

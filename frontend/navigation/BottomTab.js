@@ -34,7 +34,7 @@ const BottomTab = (props) => {
   }, []);
 
   const fetchTravelData = async (newRegion) => {
-    const travelData = await APICalls.getTravelData(newRegion);
+    const travelData = await APICalls.getTravelData(newRegion, pre);
     setPlaces(travelData);
   };
   const getPreference = (pree, value) => {
@@ -127,6 +127,7 @@ const BottomTab = (props) => {
             setRegion={setRegion}
             places={places}
             setPlaces={setPlaces}
+            pre={pre}
           />
         )}
       </Tab.Screen>
