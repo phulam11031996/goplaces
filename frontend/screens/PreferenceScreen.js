@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Text, SectionList, StyleSheet } from "react-native";
+import { View, Text, SectionList, StyleSheet} from "react-native";
 
 import CustomRating from "../components/CustomRating";
 import CustomSlider from "../components/CustomSlider";

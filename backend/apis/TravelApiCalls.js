@@ -201,6 +201,7 @@ const getAttractionListInBoundry = async (region) => {
         webUrl: "web_url" in ele ? ele.web_url : undefined,
         phone: "phone" in ele ? ele.phone : undefined,
         subtype: "subtype" in ele ? ele.subtype[0].name : undefined,
+        distance: "distance" in ele ? ele.distance : "0.0",
       };
     });
   return cleanTravelData;

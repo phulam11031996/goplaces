@@ -11,7 +11,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { GOOGLEPLACESAUTOCOMPLETE_API } from "@env";
 
 import APICalls from "../helpers/APICalls";
-import CardViewMarker from "../components/CardViewMarker";
+import CardViewMarker from "../components/MapCard";
 
 const MapViewScreen = (props) => {
   const [loading, setLoading] = React.useState(false);

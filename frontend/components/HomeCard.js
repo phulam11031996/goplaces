@@ -1,31 +1,82 @@
 import * as React from "react";
-import { View, StyleSheet, Text, FlatList, Image } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Image,
+  Linking,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 const HomeCard = (props) => {
-  const { photo, name, rating, phone } = props.placeInfo;
+  const { photo, name, rating, phone, subtype, numReviews, address_obj } =
+    props.placeInfo;
+
+  let shortName = name;
+  if (name.length > 35) {
+    shortName = name.substring(0, 35) + "...";
+  }
+  const openCall = () => {
+    Linking.openURL(`tel:${phone}`);
+  };
+
+  const openMaps = () => {
+    const { street1, city, state, postalcode } = address_obj;
+    const address = `${street1} ${city} ${state} ${postalcode}`;
+    Linking.openURL(
+      `https://www.google.com/maps/dir/?api=1&destination=${address}`
+    );
+  };
+
+  const openDetails = () => {
+    alert("Comming soon!");
+  };
+
   return (
-    <View style={styles.item}>
+    <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image source={{ uri: photo }} style={styles.image} />
       </View>
       <View style={styles.infoContainer}>
-        <Text style={styles.title}>{name}</Text>
-        <View style={styles.ratingContainer}>
+        <Text style={styles.title}>{shortName}</Text>
+        <Text style={styles.locationText}>
+          {address_obj.city}, {address_obj.state}
+        </Text>
+        <Text style={styles.text}>{subtype}</Text>
+        <View style={styles.text}>
           <Ionicons name="star" size={20} color="#FFC107" />
-          <Text style={styles.ratingText}>{rating}</Text>
+          <Text style={styles.ratingText}>
+            {rating} ({numReviews})
+          </Text>
         </View>
-        <Text style={styles.phone}>{phone}</Text>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={openMaps} style={styles.button}>
+            <Ionicons name="location-sharp" size={20} color="#fff" />
+            <Text style={styles.buttonText}>Direction</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={openCall} style={styles.button}>
+            <Ionicons name="call" size={20} color="#fff" />
+            <Text style={styles.buttonText}>Call</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={openDetails} style={styles.button}>
+            <Ionicons
+              name="ellipsis-horizontal-circle"
+              size={20}
+              color="#fff"
+            />
+            <Text style={styles.buttonText}>Details</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 32,
-  },
-  item: {
+  container: {
+    height: 280,
+    width: 320,
     backgroundColor: "#F0F2F5",
     borderRadius: 8,
     marginHorizontal: 12,
@@ -40,8 +91,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
+  title: {
+    fontSize: 32,
+  },
   imageContainer: {
-    height: 150,
+    height: 130,
     overflow: "hidden",
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
@@ -56,20 +110,33 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     fontSize: 18,
-    marginBottom: 8,
   },
-  ratingContainer: {
+  text: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 8,
+    marginTop: 5,
+    marginBottom: 5,
   },
-  ratingText: {
-    fontSize: 16,
-    marginLeft: 4,
+  locationText: {
+    fontSize: 12,
+    color: "gray",
   },
-  phone: {
-    fontSize: 16,
-    color: "#888",
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
+  button: {
+    backgroundColor: "#1e88e5",
+    borderRadius: 4,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 5,
+    paddingHorizontal: 12,
+    marginTop: -10,
+  },
+  buttonText: {
+    color: "white",
   },
 });
 
