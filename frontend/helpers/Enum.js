@@ -9,4 +9,13 @@ const preference = {
   RATING: "Rating",
 };
 
-export default preference;
+const sortBy = {
+  DISTANCE: "Distance (defalut)",
+  RATING: "Rating",
+  POPULARITY: "Popularity",
+};
+
+export default {
+  preference,
+  sortBy,
+};

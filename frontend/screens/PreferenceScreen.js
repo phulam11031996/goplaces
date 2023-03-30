@@ -1,10 +1,10 @@
 import * as React from "react";
-import { View, Text, SectionList, StyleSheet} from "react-native";
+import { View, Text, SectionList, StyleSheet } from "react-native";
 
 import CustomRating from "../components/CustomRating";
 import CustomSlider from "../components/CustomSlider";
 import CustomSwitch from "../components/CustomSwitch";
-import preference from "../helpers/Enum";
+import Enum from "../helpers/Enum";
 
 const PreferenceScreen = (props) => {
   const DATA = [
@@ -12,28 +12,28 @@ const PreferenceScreen = (props) => {
       title: "Location Settings",
       data: [
         {
-          label: preference.RESTAURANTS,
+          label: Enum.preference.RESTAURANTS,
           component: (
             <CustomSwitch
-              label={preference.RESTAURANTS}
+              label={Enum.preference.RESTAURANTS}
               getPreference={props.getPreference}
             />
           ),
         },
         {
-          label: preference.HOTELS,
+          label: Enum.preference.HOTELS,
           component: (
             <CustomSwitch
-              label={preference.HOTELS}
+              label={Enum.preference.HOTELS}
               getPreference={props.getPreference}
             />
           ),
         },
         {
-          label: preference.ATTRACTIONS,
+          label: Enum.preference.ATTRACTIONS,
           component: (
             <CustomSwitch
-              label={preference.ATTRACTIONS}
+              label={Enum.preference.ATTRACTIONS}
               getPreference={props.getPreference}
             />
           ),
@@ -44,28 +44,28 @@ const PreferenceScreen = (props) => {
       title: "Recommendation Systems",
       data: [
         {
-          label: preference.ITEMBASED,
+          label: Enum.preference.ITEMBASED,
           component: (
             <CustomSwitch
-              label={preference.ITEMBASED}
+              label={Enum.preference.ITEMBASED}
               getPreference={props.getPreference}
             />
           ),
         },
         {
-          label: preference.USERBASED,
+          label: Enum.preference.USERBASED,
           component: (
             <CustomSwitch
-              label={preference.USERBASED}
+              label={Enum.preference.USERBASED}
               getPreference={props.getPreference}
             />
           ),
         },
         {
-          label: preference.CONTENTBASED,
+          label: Enum.preference.CONTENTBASED,
           component: (
             <CustomSwitch
-              label={preference.CONTENTBASED}
+              label={Enum.preference.CONTENTBASED}
               getPreference={props.getPreference}
             />
           ),
@@ -76,23 +76,23 @@ const PreferenceScreen = (props) => {
       title: "Others",
       data: [
         {
-          label: preference.DISTANCE,
+          label: Enum.preference.DISTANCE,
           component: (
             <CustomSlider
-              label={preference.DISTANCE}
+              label={Enum.preference.DISTANCE}
               getPreference={props.getPreference}
             />
           ),
         },
         {
-          label: preference.RATING,
+          label: Enum.preference.RATING,
           component: (
             <CustomRating
               count={5}
               defaultRating={1}
               isDisabled={false}
               size={20}
-              label={preference.RATING}
+              label={Enum.preference.RATING}
               getPreference={props.getPreference}
             />
           ),
