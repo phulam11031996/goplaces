@@ -11,8 +11,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import CustomRating from "../components/CustomRating";
 
 const ActivityDetailScreen = (props) => {
-  const placeInfo = props.route.params;
-  console.log(placeInfo)
+  const placeInfo = props.route.params.placeInfo;
 
   const openMaps = () => {
     const { street1, city, state, postalcode } = placeInfo.address_obj;
@@ -34,14 +33,13 @@ const ActivityDetailScreen = (props) => {
 
       <View style={styles.box}>
         <View style={styles.showHorizontal}>
-        <Text style={styles.label}>Address:</Text>
-        <TouchableOpacity onPress={openMaps}>
-          <Text style={[styles.value, styles.link]}>
-            {placeInfo.address_obj.street1} {placeInfo.address_obj.city}{" "}
-            {placeInfo.address_obj.state}, {placeInfo.address_obj.postalcode}
-          </Text>
-        </TouchableOpacity>
-
+          <Text style={styles.label}>Address:</Text>
+          <TouchableOpacity onPress={openMaps}>
+            <Text style={[styles.value, styles.link]}>
+              {placeInfo.address_obj.street1} {placeInfo.address_obj.city}{" "}
+              {placeInfo.address_obj.state}, {placeInfo.address_obj.postalcode}
+            </Text>
+          </TouchableOpacity>
         </View>
         <Text style={styles.label}>Website:</Text>
         <TouchableOpacity onPress={() => Linking.openURL(placeInfo.webUrl)}>

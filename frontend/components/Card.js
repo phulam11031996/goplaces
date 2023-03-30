@@ -8,8 +8,10 @@ import {
   Linking,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-const HomeCard = (props) => {
+const Card = (props) => {
+  const navigation = useNavigation();
   const { photo, name, rating, phone, subtype, numReviews, address_obj } =
     props.placeInfo;
 
@@ -27,10 +29,6 @@ const HomeCard = (props) => {
     Linking.openURL(
       `https://www.google.com/maps/dir/?api=1&destination=${address}`
     );
-  };
-
-  const openDetails = () => {
-    alert("Comming soon!");
   };
 
   return (
@@ -59,7 +57,10 @@ const HomeCard = (props) => {
             <Ionicons name="call" size={20} color="#fff" />
             <Text style={styles.buttonText}>Call</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={openDetails} style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("ActivityDetailScreen", props)}
+          >
             <Ionicons
               name="ellipsis-horizontal-circle"
               size={20}
@@ -76,7 +77,7 @@ const HomeCard = (props) => {
 const styles = StyleSheet.create({
   container: {
     height: 280,
-    width: 320,
+    width: "94%",
     backgroundColor: "#F0F2F5",
     borderRadius: 8,
     marginHorizontal: 12,
@@ -140,4 +141,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeCard;
+export default Card;

@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
-import Card from "../components/HomeCard";
+import Card from "../components/Card";
 
 const fakeData = [
   {
