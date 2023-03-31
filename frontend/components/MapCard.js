@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   actionButtonCall: {
-    backgroundColor: "#007AFF",
+    backgroundColor: "tomato",
     borderTopEndRadius: 8,
     paddingHorizontal: 15,
     paddingVertical: 8,
