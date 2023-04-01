@@ -1,7 +1,7 @@
 const { TravelAPI } = require("../apis/TravelAPI");
 const Enum = require("../helpers/Enum");
 
-const testData = [
+const data = [
   {
     type: "Hotel",
     locationId: "20264157",
@@ -646,42 +646,41 @@ const testData = [
 ];
 
 const getTravelInfo = async (req, res) => {
-  // const region = req.query.region;
-  // const pre = req.query.pre;
+  const region = req.query.region;
+  const pre = req.query.pre;
 
-  // const travelApi = new TravelAPI(region);
-  // let hotelData = [];
-  // let restaurantData = [];
-  // let attractionData = [];
-  // if (pre.hotels) {
-  //   await travelApi.callAPI(Enum.url.HOTEL_URL);
-  //   hotelData = travelApi.cleanHotelData();
-  // }
-  // if (pre.restaurants) {
-  //   await travelApi.callAPI(Enum.url.RESTAURANT_URL);
-  //   restaurantData = travelApi.cleanRestaurantData();
-  // }
-  // if (pre.attractions) {
-  //   await travelApi.callAPI(Enum.url.ATTRACTION_URL);
-  //   attractionData = travelApi.cleanAttractionData();
-  // }
-  // const resultData = [...hotelData, ...restaurantData, ...attractionData];
-  // console.log(resultData);
-  // console.log(hotelData.length);
-  // console.log(attractionData.length);
-  // console.log(restaurantData.length);
-
-  // if (resultData.length == 0) {
-  //   res.status(400).json(resultData);
-  // } else {
-  //   res.status(200).json(resultData);
-  // }
-
-  if (testData.length == 0) {
-    res.status(400).json(testData);
-  } else {
-    res.status(200).json(testData);
+  const travelApi = new TravelAPI(region);
+  let hotelData = [];
+  let restaurantData = [];
+  let attractionData = [];
+  if (pre.hotels === "true") {
+    await travelApi.callAPI(Enum.url.HOTEL_URL);
+    hotelData = travelApi.cleanHotelData();
   }
+  if (pre.restaurants === "true") {
+    await travelApi.callAPI(Enum.url.RESTAURANT_URL);
+    restaurantData = travelApi.cleanRestaurantData();
+  }
+  if (pre.attractions === "true") {
+    await travelApi.callAPI(Enum.url.ATTRACTION_URL);
+    attractionData = travelApi.cleanAttractionData();
+  }
+  let resultData = [...hotelData, ...restaurantData, ...attractionData];
+  resultData = resultData.filter((item) => item.rating >= pre.rating);
+
+  if (resultData.length == 0) {
+    res.status(400).json(resultData);
+  } else {
+    res.status(200).json(resultData);
+  }
+
+  // const newData = data.filter((item) => item.rating >= pre.rating);
+
+  // if (newData.length == 0) {
+  //   res.status(400).json(newData);
+  // } else {
+  //   res.status(200).json(newData);
+  // }
 };
 
 module.exports = {

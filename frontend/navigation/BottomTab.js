@@ -7,7 +7,7 @@ import PreferenceScreen from "../screens/PreferenceScreen";
 import CardViewScreen from "../screens/CardViewScreen";
 import MapViewScreen from "../screens/MapViewScreen";
 import APICalls from "../helpers/APICalls";
-import preference from "../helpers/Enum";
+import Enum from "../helpers/Enum";
 
 const initialRegion = {
   latitude: 35.2847545,
@@ -39,49 +39,48 @@ const BottomTab = (props) => {
   };
   const getPreference = (pree, value) => {
     switch (pree) {
-      case preference.RESTAURANTS:
+      case Enum.preference.RESTAURANTS:
         setPre((prevState) => ({
           ...prevState,
           restaurants: value,
         }));
-        console.log(pre);
         break;
-      case preference.HOTELS:
+      case Enum.preference.HOTELS:
         setPre((prevState) => ({
           ...prevState,
           hotels: value,
         }));
         break;
-      case preference.ATTRACTIONS:
+      case Enum.preference.ATTRACTIONS:
         setPre((prevState) => ({
           ...prevState,
           attractions: value,
         }));
-      case preference.ITEMBASED:
+      case Enum.preference.ITEMBASED:
         setPre((prevState) => ({
           ...prevState,
           recommendations: value,
         }));
         break;
-      case preference.USERBASED:
+      case Enum.preference.USERBASED:
         setPre((prevState) => ({
           ...prevState,
           recommendations: value,
         }));
         break;
-      case preference.CONTENTBASED:
+      case Enum.preference.CONTENTBASED:
         setPre((prevState) => ({
           ...prevState,
           recommendations: value,
         }));
         break;
-      case preference.DISTANCE:
+      case Enum.preference.DISTANCE:
         setPre((prevState) => ({
           ...prevState,
           distance: value,
         }));
         break;
-      case preference.RATING:
+      case Enum.preference.RATING:
         setPre((prevState) => ({
           ...prevState,
           rating: value,
