@@ -12,8 +12,21 @@ import { useNavigation } from "@react-navigation/native";
 
 const Card = (props) => {
   const navigation = useNavigation();
-  const { photo, name, rating, phone, subtype, numReviews, address_obj } =
-    props.placeInfo;
+  const {
+    photo,
+    name,
+    rating,
+    phone,
+    subtype,
+    numReviews,
+    address,
+    type,
+    distance,
+    price,
+    isClosed,
+  } = props.placeInfo;
+
+  const distanceStr = parseFloat(distance).toFixed(1);
 
   let shortName = name;
   if (name.length > 35) {
@@ -24,8 +37,6 @@ const Card = (props) => {
   };
 
   const openMaps = () => {
-    const { street1, city, state, postalcode } = address_obj;
-    const address = `${street1} ${city} ${state} ${postalcode}`;
     Linking.openURL(
       `https://www.google.com/maps/dir/?api=1&destination=${address}`
     );
@@ -38,16 +49,25 @@ const Card = (props) => {
       </View>
       <View style={styles.infoContainer}>
         <Text style={styles.title}>{shortName}</Text>
-        <Text style={styles.locationText}>
-          {address_obj.city}, {address_obj.state}
-        </Text>
-        <Text style={styles.text}>{subtype}</Text>
+        {type === "Hotel" && <Text style={styles.typeText}>{type}</Text>}
+        {!(type === "Hotel") && (
+          <Text style={styles.typeText}>
+            {type}: {subtype}
+          </Text>
+        )}
+        {isClosed && <Text style={styles.closedText}>Now Closed</Text>}
+        {!isClosed && <Text style={styles.openedText}>Now Open</Text>}
         <View style={styles.text}>
-          <Ionicons name="star" size={20} color="#FFC107" />
-          <Text style={styles.ratingText}>
+          <Ionicons name="star" size={15} color="#FFC107" />
+          <Text>
+            {" "}
             {rating} ({numReviews})
           </Text>
         </View>
+        {(type === "Restaurant" || type === "Hotel") && (
+          <Text style={styles.text}>Price: {price}</Text>
+        )}
+        <Text style={styles.text}>Distance: {distanceStr} km</Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={openMaps} style={styles.button}>
             <Ionicons name="location-sharp" size={20} color="#fff" />
@@ -76,8 +96,7 @@ const Card = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 280,
-    width: "94%",
+    width: 365,
     backgroundColor: "#F0F2F5",
     borderRadius: 8,
     marginHorizontal: 12,
@@ -115,29 +134,38 @@ const styles = StyleSheet.create({
   text: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 5,
+    marginTop: 1,
     marginBottom: 5,
   },
-  locationText: {
+  typeText: {
     fontSize: 12,
     color: "gray",
   },
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 10,
   },
   button: {
+    flex: 1,
     backgroundColor: "#1e88e5",
     borderRadius: 4,
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 5,
-    paddingHorizontal: 12,
-    marginTop: -10,
+    paddingHorizontal: 15,
+    marginRight: 5,
   },
   buttonText: {
     color: "white",
+  },
+  closedText: {
+    marginTop: 4,
+    color: "red",
+  },
+  openedText: {
+    marginTop: 4,
+    marginBottom: 4,
+    color: "green",
   },
 });
 

@@ -14,9 +14,7 @@ const ActivityDetailScreen = (props) => {
   const placeInfo = props.route.params.placeInfo;
 
   const openMaps = () => {
-    const { street1, city, state, postalcode } = placeInfo.address_obj;
-    const address = `${street1} ${city} ${state} ${postalcode}`;
-    Linking.openURL(`https://www.google.com/maps/place/${address}`);
+    Linking.openURL(`https://www.google.com/maps/place/${placeInfo.address}`);
   };
 
   const callNumber = () => {
@@ -35,10 +33,7 @@ const ActivityDetailScreen = (props) => {
         <View style={styles.showHorizontal}>
           <Text style={styles.label}>Address:</Text>
           <TouchableOpacity onPress={openMaps}>
-            <Text style={[styles.value, styles.link]}>
-              {placeInfo.address_obj.street1} {placeInfo.address_obj.city}{" "}
-              {placeInfo.address_obj.state}, {placeInfo.address_obj.postalcode}
-            </Text>
+            <Text style={[styles.value, styles.link]}>{placeInfo.address}</Text>
           </TouchableOpacity>
         </View>
         <Text style={styles.label}>Website:</Text>

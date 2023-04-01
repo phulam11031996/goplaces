@@ -65,6 +65,7 @@ class TravelAPI {
       )
       .map((data) => {
         return {
+          type: "Attraction",
           locationId: data.location_id,
           name: data.name,
           latitude: data.latitude,
@@ -106,6 +107,7 @@ class TravelAPI {
       )
       .map((data) => {
         return {
+          type: "Restaurant",
           locationId: data.location_id,
           name: data.name,
           latitude: data.latitude,
@@ -123,7 +125,7 @@ class TravelAPI {
           price: "price" in data ? data.price : "no price found",
           hotelClass: undefined,
           subtype:
-            "cuisine" in data ? data.cuisine[0].name : "no cuisine found",
+            "cuisine" in data ? data.cuisine[0].name : "co cuisine found",
           phone: "phone" in data ? data.phone : "no phone number found",
           website:
             "website" in data ? data.website : "https://www.tripadvisor.com/",
@@ -146,6 +148,7 @@ class TravelAPI {
       )
       .map((data) => {
         return {
+          type: "Hotel",
           locationId: data.location_id,
           name: data.name,
           latitude: data.latitude,
