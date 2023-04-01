@@ -4,7 +4,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const CardViewMarker = ({ placeInfo }) => {
-  const { name, photo, rating, numReviews, subtype } = placeInfo || {};
+  const { name, photo, rating, numReviews, subtype, type } = placeInfo || {};
+
+  let shortSubtype = subtype;
+  if (subtype && subtype.length > 17) {
+    shortSubtype = shortSubtype.substring(0, 17) + "...";
+  }
 
   let shortName = name;
   if (name.length > 20) {
@@ -29,7 +34,8 @@ const CardViewMarker = ({ placeInfo }) => {
             {rating} ({numReviews})
           </Text>
         </View>
-        <Text style={styles.subtype}>{subtype}</Text>
+        {type === "Hotel" && <Text style={styles.subtype}>{type}</Text>}
+        {!(type === "Hotel") && <Text style={styles.subtype}>{type}: {shortSubtype}</Text>}
       </View>
       <View style={styles.actionsContainer}>
         <TouchableOpacity style={styles.actionButtonCall}>

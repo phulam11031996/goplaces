@@ -10,7 +10,8 @@ const preference = {
 };
 
 const sortBy = {
-  DISTANCE: "Distance (defalut)",
+  TYPE: "Types (Default)",
+  DISTANCE: "Distance",
   RATING: "Rating",
   POPULARITY: "Popularity",
 };

@@ -41,31 +41,13 @@ const PreferenceScreen = (props) => {
       ],
     },
     {
-      title: "Recommendation Systems",
+      title: "Recommendation System",
       data: [
         {
           label: Enum.preference.ITEMBASED,
           component: (
             <CustomSwitch
               label={Enum.preference.ITEMBASED}
-              getPreference={props.getPreference}
-            />
-          ),
-        },
-        {
-          label: Enum.preference.USERBASED,
-          component: (
-            <CustomSwitch
-              label={Enum.preference.USERBASED}
-              getPreference={props.getPreference}
-            />
-          ),
-        },
-        {
-          label: Enum.preference.CONTENTBASED,
-          component: (
-            <CustomSwitch
-              label={Enum.preference.CONTENTBASED}
               getPreference={props.getPreference}
             />
           ),
