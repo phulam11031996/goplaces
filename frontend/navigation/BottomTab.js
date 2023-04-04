@@ -36,7 +36,7 @@ const BottomTab = (props) => {
   React.useEffect(() => {
     fetchTravelData(region);
     fetchSavedPlaces(userEmail);
-    // fetchVistedPlaces(userEmail);
+    fetchVisitedPlaces(userEmail);
   }, []);
 
   const fetchTravelData = async (newRegion) => {
@@ -47,12 +47,11 @@ const BottomTab = (props) => {
   const fetchSavedPlaces = async () => {
     const places = await APICalls.fetchSavedPlaces(userEmail);
     setSavedPlaces(places);
-    console.log(places)
   };
 
-  const fetchVistedPlaces = async () => {
-    // const places = await APICalls.fetchVistedPlaces(userEmail);
-    // setVisitedPlaces(places);
+  const fetchVisitedPlaces = async () => {
+    const places = await APICalls.fetchVisitedPlaces(userEmail);
+    setVisitedPlaces(places);
   };
 
   const getPreference = (pree, value) => {
@@ -134,9 +133,10 @@ const BottomTab = (props) => {
       <Tab.Screen name="Home">
         {(props) => (
           <HomeScreen
-            fetchVistedPlaces={fetchVistedPlaces}
+            fetchVisitedPlaces={fetchVisitedPlaces}
             fetchSavedPlaces={fetchSavedPlaces}
             savedPlaces={savedPlaces}
+            visitedPlaces={visitedPlaces}
           />
         )}
       </Tab.Screen>
@@ -146,7 +146,7 @@ const BottomTab = (props) => {
       <Tab.Screen name="CardView">
         {(props) => (
           <CardViewScreen
-            fetchVistedPlaces={fetchVistedPlaces}
+            fetchVisitedPlaces={fetchVisitedPlaces}
             fetchSavedPlaces={fetchSavedPlaces}
             places={places}
           />

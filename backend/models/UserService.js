@@ -98,16 +98,16 @@ const getSavedPlaces = async (userEmail) => {
   }
 };
 
-const getVistedPlaces = async (userEmail) => {
+const getVisitedPlaces = async (userEmail) => {
   try {
     const user = await UserSchema.findOne({ email: userEmail });
     if (!user) {
       return { error: "User not found" };
     }
 
-    return user.vistedPlaces;
+    return user.visitedPlaces;
   } catch (err) {
-    return err;
+    return false1;
   }
 };
 
@@ -117,5 +117,5 @@ module.exports = {
   postSavedPlaces,
   postVisitedPlaces,
   getSavedPlaces,
-  getVistedPlaces,
+  getVisitedPlaces,
 };

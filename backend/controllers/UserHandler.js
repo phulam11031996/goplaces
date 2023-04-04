@@ -3,13 +3,15 @@ const UserService = require("../models/UserService");
 
 const getVistedPlaces = async (req, res) => {
   const { userEmail } = req.query;
+  console.log('Hhllo')
 
-  const result = await UserService.getVistedPlaces(userEmail);
+  const result = await UserService.getVisitedPlaces(userEmail);
+  console.log(result)
 
-  if (result.error) {
-    res.status(403).json({ error: result.error });
-  } else {
+  if (result) {
     res.status(200).json(result);
+  } else {
+    res.status(403).json({ error: result.error });
   }
 };
 

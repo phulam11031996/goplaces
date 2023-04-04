@@ -1,7 +1,7 @@
 import axios from "axios";
 import { DEV_BACKEND_URL } from "@env";
 
-const fetchVistedPlaces = async (userEmail) => {
+const fetchVisitedPlaces = async (userEmail) => {
   const result = await axios
     .get(DEV_BACKEND_URL + "api/visitedplace", {
       params: { userEmail: userEmail },
@@ -93,5 +93,5 @@ export default {
   postSavePlace,
   postVisitedPlaces,
   fetchSavedPlaces,
-  fetchVistedPlaces,
+  fetchVisitedPlaces,
 };
