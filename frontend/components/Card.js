@@ -43,7 +43,7 @@ const Card = (props) => {
   const openMaps = async () => {
     const userEmail = "asd@gmail.com"
     await APICalls.postVisitedPlaces(userEmail, props.placeInfo);
-    props.fetchVisitedPlaces();
+    // props.fetchVisitedPlaces();
     Linking.openURL(
       `https://www.google.com/maps/dir/?api=1&destination=${address}`
     );

@@ -52,18 +52,14 @@ const postSavedPlaces = async (userEmail, placeInfo) => {
       (p) => p.locationId === placeInfo.locationId
     );
 
-    console.log(existingPlaceIndex)
-
     if (existingPlaceIndex !== -1) {
       user.savedPlaces.splice(existingPlaceIndex, 1);
-    console.log('hlo')
     } else {
       user.savedPlaces.push(placeInfo);
-    console.log('yoo')
     }
 
-    const savedUser = await user.save();
-    return savedUser;
+    await user.save();
+    return true;
   } catch (err) {
     return err;
   }
@@ -76,15 +72,13 @@ const postVisitedPlaces = async (userEmail, placeInfo) => {
       return { error: "User not found" };
     }
 
-    const existingPlaceIndex = user.places.findIndex(
+    const existingPlaceIndex = user.visitedPlaces.findIndex(
       (p) => p.locationId === placeInfo.locationId
     );
 
-    if (existingPlaceIndex !== -1) {
-      return false;
-    }
+    if (existingPlaceIndex === -1) user.visitedPlaces.push(placeInfo);
 
-    const savedUser = await user.save();
+    await user.save();
     return true;
   } catch (err) {
     return err;

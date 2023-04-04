@@ -51,8 +51,8 @@ const BottomTab = (props) => {
   };
 
   const fetchVistedPlaces = async () => {
-    const places = await APICalls.fetchVistedPlaces(userEmail);
-    setVisitedPlaces(places);
+    // const places = await APICalls.fetchVistedPlaces(userEmail);
+    // setVisitedPlaces(places);
   };
 
   const getPreference = (pree, value) => {
