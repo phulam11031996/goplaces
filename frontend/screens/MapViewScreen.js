@@ -100,11 +100,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     width: "90%",
-    zIndex: 2,
+    zIndex: 1,
   },
   loading: {
     position: "absolute",
-    zIndex: 1,
+    zIndex: 2,
   },
 });
 

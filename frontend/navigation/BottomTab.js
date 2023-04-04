@@ -18,6 +18,8 @@ const initialRegion = {
 
 const Tab = createBottomTabNavigator();
 const BottomTab = (props) => {
+  const [savedPlaces, setSavedPlaces] = React.useState([]);
+  const [visitedPlaces, setVisitedPlaces] = React.useState([]);
   const [region, setRegion] = React.useState(initialRegion);
   const [places, setPlaces] = React.useState([]);
   const [pre, setPre] = React.useState({
@@ -29,14 +31,30 @@ const BottomTab = (props) => {
     rating: 1,
   });
 
+  const userEmail = "asd@gmail.com";
+
   React.useEffect(() => {
     fetchTravelData(region);
+    fetchSavedPlaces(userEmail);
+    // fetchVistedPlaces(userEmail);
   }, []);
 
   const fetchTravelData = async (newRegion) => {
-    const travelData = await APICalls.getTravelData(newRegion, pre);
-    setPlaces(travelData);
+    const places = await APICalls.getTravelData(newRegion, pre);
+    setPlaces(places);
   };
+
+  const fetchSavedPlaces = async () => {
+    const places = await APICalls.fetchSavedPlaces(userEmail);
+    setSavedPlaces(places);
+    console.log(places)
+  };
+
+  const fetchVistedPlaces = async () => {
+    const places = await APICalls.fetchVistedPlaces(userEmail);
+    setVisitedPlaces(places);
+  };
+
   const getPreference = (pree, value) => {
     switch (pree) {
       case Enum.preference.RESTAURANTS:
@@ -113,12 +131,26 @@ const BottomTab = (props) => {
           route.name === "Home" || route.name === "Preference" ? true : false,
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Home">
+        {(props) => (
+          <HomeScreen
+            fetchVistedPlaces={fetchVistedPlaces}
+            fetchSavedPlaces={fetchSavedPlaces}
+            savedPlaces={savedPlaces}
+          />
+        )}
+      </Tab.Screen>
       <Tab.Screen name="Preference">
         {(props) => <PreferenceScreen getPreference={getPreference} />}
       </Tab.Screen>
       <Tab.Screen name="CardView">
-        {(props) => <CardViewScreen places={places} />}
+        {(props) => (
+          <CardViewScreen
+            fetchVistedPlaces={fetchVistedPlaces}
+            fetchSavedPlaces={fetchSavedPlaces}
+            places={places}
+          />
+        )}
       </Tab.Screen>
       <Tab.Screen name="MapView">
         {(props) => (

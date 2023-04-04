@@ -1,6 +1,52 @@
 import axios from "axios";
 import { DEV_BACKEND_URL } from "@env";
 
+const fetchVistedPlaces = async (userEmail) => {
+  const result = await axios
+    .get(DEV_BACKEND_URL + "api/visitedplace", {
+      params: { userEmail: userEmail },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {});
+  return result;
+};
+
+const fetchSavedPlaces = async (userEmail) => {
+  const result = await axios
+    .get(DEV_BACKEND_URL + "api/savedplace", {
+      params: { userEmail: userEmail },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {});
+  return result;
+};
+
+// const postSavePlace = async (userEmail, placeInfo) => {
+const postSavePlace = async (placeInfo) => {
+  const userEmail = "asd@gmail.com";
+  const result = await axios
+    .post(DEV_BACKEND_URL + "api/savedplace", { userEmail, placeInfo })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {});
+  return result;
+};
+
+const postVisitedPlaces = async (userEmail, placeInfo) => {
+  const result = await axios
+    .post(DEV_BACKEND_URL + "api/visitedplace", { userEmail, placeInfo })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {});
+  return result;
+};
+
 const getTravelData = async (region, pre) => {
   const travelData = await axios
     .get(DEV_BACKEND_URL + "travelinfo/", {
@@ -44,4 +90,8 @@ export default {
   register,
   login,
   getTravelData,
+  postSavePlace,
+  postVisitedPlaces,
+  fetchSavedPlaces,
+  fetchVistedPlaces,
 };

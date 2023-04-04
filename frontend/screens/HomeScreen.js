@@ -654,11 +654,21 @@ const fakeData = [
   },
 ];
 
-
 const HomeScreen = (props) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.headerContainer}>
+        <Text style={styles.headerTitle}>Saved</Text>
+      </View>
+      <FlatList
+        horizontal={true}
+        data={props.savedPlaces}
+        renderItem={({ item }) => (
+          <Card fetchSavedPlaces={props.fetchSavedPlaces} placeInfo={item} />
+        )}
+        keyExtractor={(item) => item.id}
+      />
+      {/* <View style={styles.headerContainer}>
         <Text style={styles.headerTitle}>Visited</Text>
       </View>
       <FlatList
@@ -676,20 +686,11 @@ const HomeScreen = (props) => {
         renderItem={({ item }) => <Card placeInfo={item} />}
         keyExtractor={(item) => item.id}
       />
-      <View style={styles.headerContainer}>
-        <Text style={styles.headerTitle}>Saved</Text>
-      </View>
-      <FlatList
-        horizontal={true}
-        data={fakeData}
-        renderItem={({ item }) => <Card placeInfo={item} />}
-        keyExtractor={(item) => item.id}
-      />
       <View style={styles.logoutContainer}>
         <TouchableOpacity style={styles.logoutButton} onPress={props.onPress}>
           <Text style={styles.logoutText}>Sign out</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </ScrollView>
   );
 };

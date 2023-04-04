@@ -10,6 +10,8 @@ const CardViewScreen = (props) => {
   const [places, setPlaces] = React.useState(props.places);
   const [selected, setSelected] = React.useState("type");
 
+  React.useEffect(() => {}, [props]);
+
   const data = [
     { key: 1, value: Enum.sortBy.DISTANCE },
     { key: 2, value: Enum.sortBy.RATING },
@@ -54,7 +56,13 @@ const CardViewScreen = (props) => {
       <FlatList
         horizontal={false}
         data={places}
-        renderItem={({ item }) => <Card placeInfo={item} />}
+        renderItem={({ item }) => (
+          <Card
+            fetchVisitedPlaces={props.fetchVisitedPlaces}
+            fetchSavedPlaces={props.fetchSavedPlaces}
+            placeInfo={item}
+          />
+        )}
         keyExtractor={(item) => item.id}
       />
     </SafeAreaView>

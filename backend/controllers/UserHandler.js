@@ -1,6 +1,54 @@
 const { compareSync } = require("bcrypt");
 const UserService = require("../models/UserService");
 
+const getVistedPlaces = async (req, res) => {
+  const { userEmail } = req.query;
+
+  const result = await UserService.getVistedPlaces(userEmail);
+
+  if (result.error) {
+    res.status(403).json({ error: result.error });
+  } else {
+    res.status(200).json(result);
+  }
+};
+
+const getSavedPlaces = async (req, res) => {
+  const { userEmail } = req.query;
+
+  const result = await UserService.getSavedPlaces(userEmail);
+
+  if (result) {
+    res.status(200).json(result);
+  } else {
+    res.status(403).json({ error: result.error });
+  }
+};
+
+const postSavedPlaces = async (req, res) => {
+  const { userEmail, placeInfo } = req.body;
+
+  const result = await UserService.postSavedPlaces(userEmail, placeInfo);
+
+  if (result) {
+    res.status(200).json({ message: "success" });
+  } else {
+    res.status(403).json({ error: result.error });
+  }
+};
+
+const postVisitedPlaces = async (req, res) => {
+  const { userEmail, placeInfo } = req.body;
+
+  const result = await UserService.postVisitedPlaces(userEmail, placeInfo);
+
+  if (result.error) {
+    res.status(403).json({ error: result.error });
+  } else {
+    res.status(200).json({ message: "Places are saved" });
+  }
+};
+
 const login = async (req, res) => {
   const loginInfo = {
     email: req.body.email,
@@ -45,4 +93,8 @@ const register = async (req, res) => {
 module.exports = {
   register,
   login,
+  postSavedPlaces,
+  postVisitedPlaces,
+  getSavedPlaces,
+  getVistedPlaces,
 };

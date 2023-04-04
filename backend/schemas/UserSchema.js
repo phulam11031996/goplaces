@@ -1,6 +1,26 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
+const placeSchema = new mongoose.Schema({
+  type: { type: String, required: true },
+  locationId: { type: String, required: true },
+  name: { type: String, required: true },
+  latitude: { type: String, required: true },
+  longitude: { type: String, required: true },
+  numReviews: { type: String, required: false },
+  address: { type: String, required: false },
+  photo: { type: String, required: false },
+  ranking: { type: String, required: false },
+  rating: { type: String, required: false },
+  distance: { type: String, required: false },
+  isClosed: { type: Boolean, required: false },
+  price: { type: String, required: false },
+  hotelClass: { type: String, required: false },
+  phone: { type: String, required: false },
+  website: { type: String, required: false },
+  description: { type: String, required: false },
+});
+
 const userSchema = new mongoose.Schema({
   fullName: {
     type: String,
@@ -36,6 +56,14 @@ const userSchema = new mongoose.Schema({
       },
       message: (props) => `Password must be at least 8 characters long`,
     },
+  },
+  savedPlaces: {
+    type: [placeSchema],
+    default: [],
+  },
+  visitedPlaces: {
+    type: [placeSchema],
+    default: [],
   },
 });
 

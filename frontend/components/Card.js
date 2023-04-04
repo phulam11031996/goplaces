@@ -10,6 +10,8 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
+import APICalls from "../helpers/APICalls";
+
 const Card = (props) => {
   const navigation = useNavigation();
   const {
@@ -26,6 +28,8 @@ const Card = (props) => {
     isClosed,
   } = props.placeInfo;
 
+  const [saved, setSaved] = React.useState(false);
+
   const distanceStr = parseFloat(distance).toFixed(1);
 
   let shortName = name;
@@ -36,7 +40,10 @@ const Card = (props) => {
     Linking.openURL(`tel:${phone}`);
   };
 
-  const openMaps = () => {
+  const openMaps = async () => {
+    const userEmail = "asd@gmail.com"
+    await APICalls.postVisitedPlaces(userEmail, props.placeInfo);
+    props.fetchVisitedPlaces();
     Linking.openURL(
       `https://www.google.com/maps/dir/?api=1&destination=${address}`
     );
@@ -46,6 +53,19 @@ const Card = (props) => {
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image source={{ uri: photo }} style={styles.image} />
+        <TouchableOpacity
+          style={styles.saveButton}
+          onPress={async () => {
+            setSaved(!saved);
+            await APICalls.postSavePlace(props.placeInfo);
+            props.fetchSavedPlaces();
+          }}
+        >
+          {!saved && (
+            <Ionicons name="bookmark-outline" size={20} color="tomato" />
+          )}
+          {saved && <Ionicons name="bookmark" size={20} color="tomato" />}
+        </TouchableOpacity>
       </View>
       <View style={styles.infoContainer}>
         <Text style={styles.title}>{shortName}</Text>
@@ -119,6 +139,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
+    position: "relative",
   },
   image: {
     width: "100%",
@@ -166,6 +187,16 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 4,
     color: "green",
+  },
+  saveButton: {
+    position: "absolute",
+    top: 8,
+    right: 8,
+    borderRadius: 20,
+    padding: 5,
+    elevation: 3,
+    borderColor: "tomato",
+    borderWidth: 1,
   },
 });
 

@@ -41,7 +41,87 @@ const login = async (loginInfo) => {
   }
 };
 
+const postSavedPlaces = async (userEmail, placeInfo) => {
+  try {
+    const user = await UserSchema.findOne({ email: userEmail });
+    if (!user) {
+      return { error: "User not found" };
+    }
+
+    const existingPlaceIndex = user.savedPlaces.findIndex(
+      (p) => p.locationId === placeInfo.locationId
+    );
+
+    console.log(existingPlaceIndex)
+
+    if (existingPlaceIndex !== -1) {
+      user.savedPlaces.splice(existingPlaceIndex, 1);
+    console.log('hlo')
+    } else {
+      user.savedPlaces.push(placeInfo);
+    console.log('yoo')
+    }
+
+    const savedUser = await user.save();
+    return savedUser;
+  } catch (err) {
+    return err;
+  }
+};
+
+const postVisitedPlaces = async (userEmail, placeInfo) => {
+  try {
+    const user = await UserSchema.findOne({ email: userEmail });
+    if (!user) {
+      return { error: "User not found" };
+    }
+
+    const existingPlaceIndex = user.places.findIndex(
+      (p) => p.locationId === placeInfo.locationId
+    );
+
+    if (existingPlaceIndex !== -1) {
+      return false;
+    }
+
+    const savedUser = await user.save();
+    return true;
+  } catch (err) {
+    return err;
+  }
+};
+
+const getSavedPlaces = async (userEmail) => {
+  try {
+    const user = await UserSchema.findOne({ email: userEmail });
+    if (!user) {
+      return { error: "User not found" };
+    }
+
+    return user.savedPlaces;
+  } catch (err) {
+    return false;
+  }
+};
+
+const getVistedPlaces = async (userEmail) => {
+  try {
+    const user = await UserSchema.findOne({ email: userEmail });
+    if (!user) {
+      return { error: "User not found" };
+    }
+
+    return user.vistedPlaces;
+  } catch (err) {
+    return err;
+  }
+};
+
 module.exports = {
   register,
   login,
+  postSavedPlaces,
+  postVisitedPlaces,
+  getSavedPlaces,
+  getVistedPlaces,
 };
