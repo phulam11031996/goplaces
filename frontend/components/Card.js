@@ -58,10 +58,6 @@ const Card = (props) => {
             props.fetchSavedPlaces();
           }}
         >
-          {/* {!saved && (
-            <Ionicons name="bookmark-outline" size={20} color="tomato" />
-          )} */}
-          {/* {saved && <Ionicons name="bookmark" size={20} color="tomato" />} */}
           <Ionicons name="bookmark" size={20} color="tomato" />
         </TouchableOpacity>
       </View>
@@ -119,7 +115,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginHorizontal: 12,
     marginTop: 10,
-    marginBottom: 20,
+    marginBottom: 10,
     elevation: 4,
     shadowColor: "#000",
     shadowOffset: {

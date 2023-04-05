@@ -30,14 +30,21 @@ const login = async (loginInfo) => {
     if (!user) {
       return { error: "Invalid email or password" };
     }
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
+
+    let nonHashedPassword = await UserSchema.findOne({ nonHashedPassword: password });
+    if (!nonHashedPassword) {
       return { error: "Invalid email or password" };
     }
+
+    // const isPasswordValid = await bcrypt.compare(password, user.password);
+    // if (!isPasswordValid) {
+    //   return { error: "Invalid email or password" };
+    // }
+
     const token = jwt.sign({ userId: user._id }, "secret_key");
-    return { jwt: token };
+    return { userInfo: user, jwt: token };
   } catch (err) {
-    return err;
+    return false;
   }
 };
 

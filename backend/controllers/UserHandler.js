@@ -1,12 +1,9 @@
-const { compareSync } = require("bcrypt");
 const UserService = require("../models/UserService");
 
 const getVistedPlaces = async (req, res) => {
   const { userEmail } = req.query;
-  console.log('Hhllo')
 
   const result = await UserService.getVisitedPlaces(userEmail);
-  console.log(result)
 
   if (result) {
     res.status(200).json(result);
@@ -62,9 +59,9 @@ const login = async (req, res) => {
   if (result.error) {
     res.status(403).json({ error: result.error });
   } else if (result.jwt) {
-    res.status(200).json({ jwt: result.jwt });
+    res.status(200).json(result);
   } else {
-    res.status(500).json({ message: "Unknown error" });
+    res.status(500).json({ error: "Unknown error" });
   }
 };
 
@@ -72,7 +69,10 @@ const register = async (req, res) => {
   const newUser = {
     fullName: req.body.fullName,
     email: req.body.email,
+    nonHashedPassword: req.body.password,
     password: req.body.password,
+    visitedPlaces: [],
+    savedPlaces: [],
   };
 
   const result = await UserService.register(newUser);
@@ -85,7 +85,6 @@ const register = async (req, res) => {
     const validationErrors = Object.values(result.errors).map(
       (error) => error.message
     );
-    console.log(validationErrors);
     res.status(401).json({ messages: validationErrors });
   } else {
     res.status(200).json({ messages: "Thanks for signing up" });

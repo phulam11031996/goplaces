@@ -28,14 +28,20 @@ const ActivityDetailScreen = (props) => {
       <View style={styles.box}>
         <Text style={styles.name}>{placeInfo.name}</Text>
       </View>
+      <View style={styles.box}>
+        <Text style={styles.label}>Description:</Text>
+        <Text style={styles.value}>{placeInfo.description}</Text>
+        <Text style={styles.label}>Type:</Text>
+        <Text style={styles.value}>{placeInfo.type}</Text>
+        <Text style={styles.label}>Subtype:</Text>
+        <Text style={styles.value}>{placeInfo.subtype}</Text>
+      </View>
 
       <View style={styles.box}>
-        <View style={styles.showHorizontal}>
-          <Text style={styles.label}>Address:</Text>
-          <TouchableOpacity onPress={openMaps}>
-            <Text style={[styles.value, styles.link]}>{placeInfo.address}</Text>
-          </TouchableOpacity>
-        </View>
+        <Text style={styles.label}>Address</Text>
+        <TouchableOpacity onPress={openMaps}>
+          <Text style={[styles.value, styles.link]}>{placeInfo.address}</Text>
+        </TouchableOpacity>
         <Text style={styles.label}>Website:</Text>
         <TouchableOpacity onPress={() => Linking.openURL(placeInfo.webUrl)}>
           <Text style={[styles.link, styles.value]}>{placeInfo.webUrl}</Text>
@@ -63,13 +69,6 @@ const ActivityDetailScreen = (props) => {
         <Text style={styles.label}>Reward:</Text>
         <Text style={styles.value}>{placeInfo.ranking_subcategory}</Text>
       </View>
-
-      <View style={styles.box}>
-        <Text style={styles.label}>Description:</Text>
-        <Text style={styles.value}>{placeInfo.description}</Text>
-        <Text style={styles.label}>Subtype:</Text>
-        <Text style={styles.value}>{placeInfo.subtype}</Text>
-      </View>
     </ScrollView>
   );
 };
@@ -79,11 +78,6 @@ const styles = StyleSheet.create({
     height: 200,
     width: "100%",
     resizeMode: "cover",
-  },
-  container: {
-    justifyContent: "center",
-    alignItems: "center",
-    paddingVertical: 10,
   },
   name: {
     fontSize: 24,

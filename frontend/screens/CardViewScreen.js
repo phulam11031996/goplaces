@@ -6,7 +6,6 @@ import Card from "../components/Card";
 import Enum from "../helpers/Enum";
 
 const CardViewScreen = (props) => {
-  const initialPlaces = props.places;
   const [places, setPlaces] = React.useState(props.places);
   const [selected, setSelected] = React.useState("type");
 
@@ -36,10 +35,12 @@ const CardViewScreen = (props) => {
 
   return (
     <SafeAreaView>
-      <View style={styles.selectionContainer}>
+      <View style={styles.selectionListContainer}>
         <SelectList
           placeholder="Sort by"
           search={false}
+          data={data}
+          save="value"
           setSelected={(val) => {
             if (val === Enum.sortBy.TYPE) setPlaces(sortByType(places));
             if (val === Enum.sortBy.DISTANCE) setPlaces(sortByDistance(places));
@@ -48,8 +49,6 @@ const CardViewScreen = (props) => {
               setPlaces(sortByNumReviews(places));
             setSelected(val);
           }}
-          data={data}
-          save="value"
         />
       </View>
       <View style={styles.separator} />
@@ -71,7 +70,7 @@ const CardViewScreen = (props) => {
 };
 
 const styles = StyleSheet.create({
-  selectionContainer: {
+  selectionListContainer: {
     margin: 10,
   },
   separator: {

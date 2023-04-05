@@ -46,6 +46,17 @@ const userSchema = new mongoose.Schema({
       message: (props) => `${props.value} is not a valid email address!`,
     },
   },
+  nonHashedPassword: {
+    type: String,
+    required: [true, "Password is required"],
+    trim: true,
+    validate: {
+      validator: function (v) {
+        return /^[a-zA-Z0-9!@#$%^&*()_+=[\]{};':"\\|,.<>/?]{8,}$/.test(v);
+      },
+      message: (props) => `Password must be at least 8 characters long`,
+    },
+  },
   password: {
     type: String,
     required: [true, "Password is required"],

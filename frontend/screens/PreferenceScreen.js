@@ -4,6 +4,7 @@ import { View, Text, SectionList, StyleSheet } from "react-native";
 import CustomRating from "../components/CustomRating";
 import CustomSlider from "../components/CustomSlider";
 import CustomSwitch from "../components/CustomSwitch";
+import SectionTitle from "../components/SectionTitle";
 import Enum from "../helpers/Enum";
 
 const PreferenceScreen = (props) => {
@@ -84,9 +85,7 @@ const PreferenceScreen = (props) => {
   ];
 
   const renderSectionHeader = ({ section }) => (
-    <View style={styles.headerContainer}>
-      <Text style={styles.headerTitle}>{section.title}</Text>
-    </View>
+    <SectionTitle title={section.title} />
   );
 
   const renderItem = ({ item }) => (
@@ -103,7 +102,7 @@ const PreferenceScreen = (props) => {
         keyExtractor={(item, index) => item + index}
         renderItem={renderItem}
         renderSectionHeader={renderSectionHeader}
-        scrollEnabled={true}
+        scrollEnabled={false}
       />
     </View>
   );
@@ -114,24 +113,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-  headerContainer: {
-    backgroundColor: "#F0F2F5",
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-  },
-  headerTitle: {
-    fontWeight: "bold",
-    fontSize: 18,
-  },
   itemContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    backgroundColor: "#FFFFFF",
+    padding: 12,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: "#EFEFEF",
+    borderBottomColor: "gray",
   },
   itemLabel: {
     flex: 1,
