@@ -84,7 +84,7 @@ const SignUpScreen = (props) => {
               }}
             >
               <TouchableOpacity
-                onPress={() => {}}
+                onPress={() => {alert("Comming Soon!")}}
                 style={{
                   borderColor: "#ddd",
                   borderWidth: 2,
@@ -101,7 +101,7 @@ const SignUpScreen = (props) => {
                 />
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => {}}
+                onPress={() => {alert("Comming Soon!")}}
                 style={{
                   borderColor: "#ddd",
                   borderWidth: 2,
@@ -118,7 +118,7 @@ const SignUpScreen = (props) => {
                 />
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => {}}
+                onPress={() => {alert("Comming Soon!")}}
                 style={{
                   borderColor: "#ddd",
                   borderWidth: 2,

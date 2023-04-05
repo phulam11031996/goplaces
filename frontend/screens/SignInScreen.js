@@ -99,7 +99,7 @@ const SignInScreen = (props) => {
               }
               inputType="password"
               fieldButtonLabel={"Forgot?"}
-              fieldButtonFunction={() => {}}
+              fieldButtonFunction={() => {alert("Comming Soon!")}}
               onChangeText={formikProps.handleChange("password")}
               onBlur={formikProps.handleBlur("password")}
               value={formikProps.values.password}
@@ -128,7 +128,7 @@ const SignInScreen = (props) => {
               }}
             >
               <TouchableOpacity
-                onPress={() => {}}
+                onPress={() => {alert("Comming Soon!")}}
                 style={{
                   borderColor: "#ddd",
                   borderWidth: 2,
@@ -145,7 +145,7 @@ const SignInScreen = (props) => {
                 />
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => {}}
+                onPress={() => {alert("Comming Soon!")}}
                 style={{
                   borderColor: "#ddd",
                   borderWidth: 2,
@@ -162,7 +162,7 @@ const SignInScreen = (props) => {
                 />
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => {}}
+                onPress={() => {alert("Comming Soon!")}}
                 style={{
                   borderColor: "#ddd",
                   borderWidth: 2,
