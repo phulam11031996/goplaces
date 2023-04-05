@@ -29,7 +29,7 @@ const NavigationStack = () => {
       <Stack.Screen
         name="ActivityDetailScreen"
         component={ActivityDetailScreen}
-        options={{headerBackTitle : "Back"}}
+        options={{ headerBackTitle: "Back" }}
       />
     </Stack.Navigator>
   );

@@ -17,7 +17,9 @@ const initialRegion = {
 };
 
 const Tab = createBottomTabNavigator();
-const BottomTab = (props) => {
+const BottomTab = ({ route }) => {
+  const { email } = route.params.userInfo;
+
   const [savedPlaces, setSavedPlaces] = React.useState([]);
   const [visitedPlaces, setVisitedPlaces] = React.useState([]);
   const [region, setRegion] = React.useState(initialRegion);
@@ -31,12 +33,10 @@ const BottomTab = (props) => {
     rating: 1,
   });
 
-  const userEmail = "asd@gmail.com";
-
   React.useEffect(() => {
     fetchTravelData(region);
-    fetchSavedPlaces(userEmail);
-    fetchVisitedPlaces(userEmail);
+    fetchSavedPlaces();
+    fetchVisitedPlaces();
   }, []);
 
   const fetchTravelData = async (newRegion) => {
@@ -45,12 +45,12 @@ const BottomTab = (props) => {
   };
 
   const fetchSavedPlaces = async () => {
-    const places = await APICalls.fetchSavedPlaces(userEmail);
+    const places = await APICalls.fetchSavedPlaces(email);
     setSavedPlaces(places);
   };
 
   const fetchVisitedPlaces = async () => {
-    const places = await APICalls.fetchVisitedPlaces(userEmail);
+    const places = await APICalls.fetchVisitedPlaces(email);
     setVisitedPlaces(places);
   };
 
@@ -137,6 +137,8 @@ const BottomTab = (props) => {
             fetchSavedPlaces={fetchSavedPlaces}
             savedPlaces={savedPlaces}
             visitedPlaces={visitedPlaces}
+            email={email}
+            navigation={props.navigation}
           />
         )}
       </Tab.Screen>
@@ -149,6 +151,7 @@ const BottomTab = (props) => {
             fetchVisitedPlaces={fetchVisitedPlaces}
             fetchSavedPlaces={fetchSavedPlaces}
             places={places}
+            email={email}
           />
         )}
       </Tab.Screen>

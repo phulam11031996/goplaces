@@ -25,9 +25,7 @@ const fetchSavedPlaces = async (userEmail) => {
   return result;
 };
 
-// const postSavePlace = async (userEmail, placeInfo) => {
-const postSavePlace = async (placeInfo) => {
-  const userEmail = "asd@gmail.com";
+const postSavePlace = async (userEmail, placeInfo) => {
   const result = await axios
     .post(DEV_BACKEND_URL + "api/savedplace", { userEmail, placeInfo })
     .then((res) => {
@@ -77,7 +75,7 @@ const login = async (loginInfo) => {
   const isLogin = await axios
     .post(DEV_BACKEND_URL + "api/login", loginInfo)
     .then((res) => {
-      return true;
+      return res.data;
     })
     .catch((err) => {
       console.error(err.response.data.error);

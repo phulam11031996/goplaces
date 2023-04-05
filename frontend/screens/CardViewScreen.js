@@ -61,9 +61,10 @@ const CardViewScreen = (props) => {
             fetchVisitedPlaces={props.fetchVisitedPlaces}
             fetchSavedPlaces={props.fetchSavedPlaces}
             placeInfo={item}
+            email={props.email}
           />
         )}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.locationId}
       />
     </SafeAreaView>
   );

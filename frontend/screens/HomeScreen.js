@@ -24,9 +24,10 @@ const HomeScreen = (props) => {
             fetchVisitedPlaces={props.fetchVisitedPlaces}
             fetchSavedPlaces={props.fetchSavedPlaces}
             placeInfo={item}
+            email={props.email}
           />
         )}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.locationId}
       />
       <View style={styles.headerContainer}>
         <Text style={styles.headerTitle}>Visited</Text>
@@ -39,15 +40,19 @@ const HomeScreen = (props) => {
             fetchSavedPlaces={props.fetchSavedPlaces}
             fetchVisitedPlaces={props.fetchVisitedPlaces}
             placeInfo={item}
+            email={props.email}
           />
         )}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.locationId}
       />
       <View style={styles.headerContainer}>
         <Text style={styles.headerTitle}>Recommended</Text>
       </View>
       <View style={styles.logoutContainer}>
-        <TouchableOpacity style={styles.logoutButton} onPress={props.onPress}>
+        <TouchableOpacity
+          style={styles.logoutButton}
+          onPress={() => props.navigation.navigate("SignInScreen")}
+        >
           <Text style={styles.logoutText}>Sign out</Text>
         </TouchableOpacity>
       </View>

@@ -28,8 +28,6 @@ const loginValidationSchema = yup.object().shape({
 });
 
 const SignInScreen = (props) => {
-  const [text, onChangeText] = React.useState("Useless Text");
-
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
@@ -38,12 +36,12 @@ const SignInScreen = (props) => {
       onSubmit={async (values, actions) => {
         actions.resetForm();
         const loginInfo = {
-          email: values.email,
+          email: values.email.toLowerCase(),
           password: values.password,
         };
-        const isLogin = await APICalls.login(loginInfo);
-        if (isLogin) {
-          props.navigation.navigate("BottomTab");
+        const userInfo = await APICalls.login(loginInfo);
+        if (userInfo) {
+          props.navigation.navigate("BottomTab", userInfo);
         }
       }}
     >
@@ -240,4 +238,3 @@ const styles = StyleSheet.create({
 });
 
 export default SignInScreen;
-

@@ -152,7 +152,7 @@ const SignUpScreen = (props) => {
                 />
               }
               inputType="text"
-              keyboardType=""
+              keyboardType="default"
               fieldButtonFunction={() => {}}
               onChangeText={formikProps.handleChange("fullName")}
               onBlur={formikProps.handleBlur("fullName")}

@@ -28,7 +28,6 @@ const Card = (props) => {
     isClosed,
   } = props.placeInfo;
 
-  const [saved, setSaved] = React.useState(false);
 
   const distanceStr = parseFloat(distance).toFixed(1);
 
@@ -41,9 +40,8 @@ const Card = (props) => {
   };
 
   const openMaps = async () => {
-    const userEmail = "asd@gmail.com"
-    await APICalls.postVisitedPlaces(userEmail, props.placeInfo);
-    // props.fetchVisitedPlaces();
+    await APICalls.postVisitedPlaces(props.email, props.placeInfo);
+    props.fetchVisitedPlaces();
     Linking.openURL(
       `https://www.google.com/maps/dir/?api=1&destination=${address}`
     );
@@ -56,15 +54,15 @@ const Card = (props) => {
         <TouchableOpacity
           style={styles.saveButton}
           onPress={async () => {
-            setSaved(!saved);
-            await APICalls.postSavePlace(props.placeInfo);
+            await APICalls.postSavePlace(props.email, props.placeInfo);
             props.fetchSavedPlaces();
           }}
         >
-          {!saved && (
+          {/* {!saved && (
             <Ionicons name="bookmark-outline" size={20} color="tomato" />
-          )}
-          {saved && <Ionicons name="bookmark" size={20} color="tomato" />}
+          )} */}
+          {/* {saved && <Ionicons name="bookmark" size={20} color="tomato" />} */}
+          <Ionicons name="bookmark" size={20} color="tomato" />
         </TouchableOpacity>
       </View>
       <View style={styles.infoContainer}>
