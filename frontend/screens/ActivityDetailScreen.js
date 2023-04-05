@@ -10,8 +10,8 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import CustomRating from "../components/CustomRating";
 
-const ActivityDetailScreen = (props) => {
-  const placeInfo = props.route.params.placeInfo;
+const ActivityDetailScreen = ({ route }) => {
+  const placeInfo = route.params.placeInfo;
 
   const openMaps = () => {
     Linking.openURL(`https://www.google.com/maps/place/${placeInfo.address}`);
