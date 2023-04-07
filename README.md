@@ -1,10 +1,12 @@
 # TravelApp
- To run back end:
-     cd backend
-     npm install
-     nodemon index.js
 
- To run frontend:
-     cd frontend
-     npm install
-     npm start (press "i" when finished to run app)
+How to run backend development mode:
+    - cd backend
+    - npm install
+    - nodemon index.js
+
+How to run frontend development mode:
+    - cd frontend
+    - npm install
+    - npm start
+    - Press "i" when finish running to open app
