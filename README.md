@@ -1,11 +1,12 @@
 # TravelApp
-
-How to run backend development mode:
+To run app,
+have expo install
+run backend development mode:
     - cd backend
     - npm install
     - nodemon index.js
 
-How to run frontend development mode:
+run frontend development mode:
     - cd frontend
     - npm install
     - npm start
