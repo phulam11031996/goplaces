@@ -1,6 +1,6 @@
 # TravelApp
 To run app,
-have expo install
+have expo install, then
 run backend development mode:
     - cd backend
     - npm install
