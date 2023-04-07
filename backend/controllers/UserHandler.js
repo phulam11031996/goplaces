@@ -1,5 +1,17 @@
 const UserService = require("../models/UserService");
 
+const postUserRating = async (req, res) => {
+  const { email, locationId, rating } = req.body;
+
+  const result = await UserService.postUserRating(email, locationId, rating);
+
+  if (result) {
+    res.status(200).json(result);
+  } else {
+    res.status(403).json({ error: result.error });
+  }
+};
+
 const getVistedPlaces = async (req, res) => {
   const { userEmail } = req.query;
 
@@ -98,4 +110,5 @@ module.exports = {
   postVisitedPlaces,
   getSavedPlaces,
   getVistedPlaces,
+  postUserRating,
 };

@@ -36,7 +36,6 @@ const ActivityDetailScreen = ({ route }) => {
         <Text style={styles.label}>Subtype:</Text>
         <Text style={styles.value}>{placeInfo.subtype}</Text>
       </View>
-
       <View style={styles.box}>
         <Text style={styles.label}>Address</Text>
         <TouchableOpacity onPress={openMaps}>
@@ -55,7 +54,6 @@ const ActivityDetailScreen = ({ route }) => {
           {placeInfo.isClosed ? "Open" : "Closed"}
         </Text>
       </View>
-
       <View style={styles.box}>
         <Text style={styles.label}>Rating:</Text>
         <CustomRating

@@ -1,6 +1,18 @@
 import axios from "axios";
 import { DEV_BACKEND_URL } from "@env";
 
+const postUserRating = async (email, locationId, rating) => {
+  const result = await axios
+    .get(DEV_BACKEND_URL + "api/userrating", {
+      params: { email: email, locationId: locationId, rating: rating },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {});
+  return result;
+};
+
 const fetchVisitedPlaces = async (userEmail) => {
   const result = await axios
     .get(DEV_BACKEND_URL + "api/visitedplace", {
@@ -92,4 +104,5 @@ export default {
   postVisitedPlaces,
   fetchSavedPlaces,
   fetchVisitedPlaces,
+  postUserRating,
 };

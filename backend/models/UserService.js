@@ -23,6 +23,14 @@ const register = async (newUser) => {
   }
 };
 
+const postUserRating = async (email, locationId, rating) => {
+  try {
+    return true;
+  } catch (err) {
+    return false;
+  }
+};
+
 const login = async (loginInfo) => {
   try {
     const { email, password } = loginInfo;
@@ -31,7 +39,9 @@ const login = async (loginInfo) => {
       return { error: "Invalid email or password" };
     }
 
-    let nonHashedPassword = await UserSchema.findOne({ nonHashedPassword: password });
+    let nonHashedPassword = await UserSchema.findOne({
+      nonHashedPassword: password,
+    });
     if (!nonHashedPassword) {
       return { error: "Invalid email or password" };
     }
@@ -125,4 +135,5 @@ module.exports = {
   postVisitedPlaces,
   getSavedPlaces,
   getVisitedPlaces,
+  postUserRating,
 };

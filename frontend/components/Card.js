@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   Linking,
+  Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -15,6 +16,7 @@ import APICalls from "../helpers/APICalls";
 const Card = (props) => {
   const navigation = useNavigation();
   const {
+    locationId,
     photo,
     name,
     rating,
@@ -28,7 +30,6 @@ const Card = (props) => {
     isClosed,
   } = props.placeInfo;
 
-
   const distanceStr = parseFloat(distance).toFixed(1);
 
   let shortName = name;
@@ -39,12 +40,48 @@ const Card = (props) => {
     Linking.openURL(`tel:${phone}`);
   };
 
+  const getAlert = async () => {
+    return Alert.alert(
+      "Rating",
+      "How would you rate " + props.placeInfo.name,
+      [
+        {
+          text: "1",
+          onPress: async () =>
+            await APICalls.postUserRating(props.email, locationId, 1),
+        },
+        {
+          text: "2",
+          onPress: async () =>
+            await APICalls.postUserRating(props.email, locationId, 2),
+        },
+        {
+          text: "3",
+          onPress: async () =>
+            await APICalls.postUserRating(props.email, locationId, 3),
+        },
+        {
+          text: "4",
+          onPress: async () =>
+            await APICalls.postUserRating(props.email, locationId, 4),
+        },
+        {
+          text: "5",
+          onPress: async () =>
+            await APICalls.postUserRating(props.email, locationId, 5),
+        },
+        { text: "Cancel", onPress: () => console.log("User Rating Cancelled") },
+      ],
+      { cancelable: true }
+    );
+  };
   const openMaps = async () => {
     await APICalls.postVisitedPlaces(props.email, props.placeInfo);
     props.fetchVisitedPlaces();
     Linking.openURL(
       `https://www.google.com/maps/dir/?api=1&destination=${address}`
     );
+    setTimeout(getAlert, 1000);
   };
 
   return (
