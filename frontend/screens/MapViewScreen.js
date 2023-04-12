@@ -76,6 +76,7 @@ const MapViewScreen = (props) => {
                   longitudeDelta: region.longitudeDelta,
                 };
                 setRegion(newRegion);
+                changeRegion(newRegion);
               }}
             >
               <CardViewMarker placeInfo={place} />

@@ -646,41 +646,41 @@ const data = [
 ];
 
 const getTravelInfo = async (req, res) => {
-  // const region = req.query.region;
+  const region = req.query.region;
   const pre = req.query.pre;
 
-  // const travelApi = new TravelAPI(region);
-  // let hotelData = [];
-  // let restaurantData = [];
-  // let attractionData = [];
-  // if (pre.hotels === "true") {
-  //   await travelApi.callAPI(Enum.url.HOTEL_URL);
-  //   hotelData = travelApi.cleanHotelData();
-  // }
-  // if (pre.restaurants === "true") {
-  //   await travelApi.callAPI(Enum.url.RESTAURANT_URL);
-  //   restaurantData = travelApi.cleanRestaurantData();
-  // }
-  // if (pre.attractions === "true") {
-  //   await travelApi.callAPI(Enum.url.ATTRACTION_URL);
-  //   attractionData = travelApi.cleanAttractionData();
-  // }
-  // let resultData = [...hotelData, ...restaurantData, ...attractionData];
-  // resultData = resultData.filter((item) => item.rating >= pre.rating);
-
-  // if (resultData.length == 0) {
-  //   res.status(400).json(resultData);
-  // } else {
-  //   res.status(200).json(resultData);
-  // }
-
-  const newData = data.filter((item) => item.rating >= pre.rating);
-
-  if (newData.length == 0) {
-    res.status(400).json(newData);
-  } else {
-    res.status(200).json(newData);
+  const travelApi = new TravelAPI(region);
+  let hotelData = [];
+  let restaurantData = [];
+  let attractionData = [];
+  if (pre.hotels === "true") {
+    await travelApi.callAPI(Enum.url.HOTEL_URL);
+    hotelData = travelApi.cleanHotelData();
   }
+  if (pre.restaurants === "true") {
+    await travelApi.callAPI(Enum.url.RESTAURANT_URL);
+    restaurantData = travelApi.cleanRestaurantData();
+  }
+  if (pre.attractions === "true") {
+    await travelApi.callAPI(Enum.url.ATTRACTION_URL);
+    attractionData = travelApi.cleanAttractionData();
+  }
+  let resultData = [...hotelData, ...restaurantData, ...attractionData];
+  resultData = resultData.filter((item) => item.rating >= pre.rating);
+
+  if (resultData.length == 0) {
+    res.status(400).json(resultData);
+  } else {
+    res.status(200).json(resultData);
+  }
+
+  // const newData = data.filter((item) => item.rating >= pre.rating);
+
+  // if (newData.length == 0) {
+  //   res.status(400).json(newData);
+  // } else {
+  //   res.status(200).json(newData);
+  // }
 };
 
 module.exports = {

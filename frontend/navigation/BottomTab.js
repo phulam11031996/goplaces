@@ -158,10 +158,10 @@ const BottomTab = ({ route }) => {
       <Tab.Screen name="MapView">
         {(props) => (
           <MapViewScreen
-            region={region}
             setRegion={setRegion}
-            places={places}
             setPlaces={setPlaces}
+            region={region}
+            places={places}
             pre={pre}
           />
         )}

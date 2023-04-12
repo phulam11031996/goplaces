@@ -9,7 +9,10 @@ const CardViewScreen = (props) => {
   const [places, setPlaces] = React.useState(props.places);
   const [selected, setSelected] = React.useState("type");
 
-  React.useEffect(() => {}, [props]);
+  React.useEffect(() => {
+    setPlaces(props.places);
+    setSelected("type");
+  }, [props]);
 
   const data = [
     { key: 1, value: Enum.sortBy.DISTANCE },
