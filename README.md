@@ -6,8 +6,8 @@ Travel App is a mobile app that lets people discover attractions, hotels, and re
 Frontend: React Native
 Backend: Node.js, Express.js, MongoDB
 
-Clone the project using this command:
-`https://github.com/phulam11031996/travel-app.git`
+Clone the project using this command: <br />
+`git clone https://github.com/phulam11031996/travel-app.git`
 
 ## Installation Guide
 ### Softwares Requirements:
