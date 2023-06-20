@@ -7,7 +7,7 @@ Frontend: React Native
 Backend: Node.js, Express.js, MongoDB
 
 Clone the project using this command:
-`https://github.com/phulam11031996/blog-website.git](https://github.com/phulam11031996/travel-app.git`
+`https://github.com/phulam11031996/travel-app.git`
 
 ## Installation Guide
 ### Softwares Requirements:
